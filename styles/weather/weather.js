@@ -182,3 +182,6 @@ export const AirInfoWrap = styled.div`
   min-width: 320px;
   height: 150px;
 `;
+
+// 여기 변경됨
+// ㅇㅇ
