@@ -54,6 +54,7 @@ export const DateInfo = styled.p`
 export const HourInfo = styled.p`
   font-size: 14px;
   font-weight: 600;
+  margin-top: 3px;
 `;
 
 // 하늘 상태 이미지

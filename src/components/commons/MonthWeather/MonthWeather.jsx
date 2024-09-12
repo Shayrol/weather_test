@@ -111,25 +111,190 @@ export default function MonthWeather({ weatherInfo }) {
 
   // 날씨 데이터를 렌더링하는 컴포넌트
   // 오늘, 내일, 모레 3일간 강수확률 data
-  const WeatherData = ({ offset }) => {
-    const weatherData =
-      weatherInfo.weather[getDateWithOffset(offset)]?.["0000"];
+
+  // const WeatherData = ({ offset }) => {
+  //   const weatherDataAM =
+  //     weatherInfo.weather[getDateWithOffset(offset)]?.["0000"];
+  //   const weatherDataPM =
+  //     weatherInfo.weather[getDateWithOffset(offset)]?.["1200"];
+  //   return (
+
+  //     <S.Humidity4>
+  //       <S.HumidityInfoWrap>
+  //         <S.HumidityImg
+  //           src={
+  //             weatherDataAM
+  //               ? Humidity(weatherDataAM.POP)
+  //               : "/images/Cloud_SVG/humidity/humidity_low.svg"
+  //           }
+  //           alt="습도 이미지"
+  //         />
+  //         <S.HumidityText>
+  //           {weatherDataAM ? weatherDataAM.POP : "-"}%
+  //         </S.HumidityText>
+  //       </S.HumidityInfoWrap>
+  //       <S.HumidityInfoWrap>
+  //         <S.HumidityImg
+  //           src={
+  //             weatherDataPM
+  //               ? Humidity(weatherDataPM.POP)
+  //               : "/images/Cloud_SVG/humidity/humidity_low.svg"
+  //           }
+  //           alt="습도 이미지"
+  //         />
+  //         <S.HumidityText>
+  //           {weatherDataPM ? weatherDataPM.POP : "-"}%
+  //         </S.HumidityText>
+  //       </S.HumidityInfoWrap>
+  //     </S.Humidity4>
+  //   );
+  // };
+
+  const WeatherDataAM = () => {
     return (
-      <S.HumidityInfoWrap>
-        <S.HumidityImg
-          src={weatherData ? Humidity(weatherData.POP) : ""}
-          alt="습도 이미지"
-        />
-        <S.HumidityText>{weatherData ? weatherData.POP : ""}%</S.HumidityText>
-      </S.HumidityInfoWrap>
+      <S.HumidityWrap>
+        {dates.map((offset) => {
+          const weatherDataAM =
+            weatherInfo.weather[getDateWithOffset(offset)]?.["0000"];
+          return (
+            <div
+              key={offset}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              {/* <S.Humidity4> */}
+              <S.HumidityInfoWrap>
+                <S.HumidityImg
+                  src={
+                    weatherDataAM
+                      ? Humidity(weatherDataAM.POP)
+                      : "/images/Cloud_SVG/humidity/humidity_low.svg"
+                  }
+                  alt="습도 이미지"
+                />
+                <S.HumidityText>
+                  {weatherDataAM ? weatherDataAM.POP : "-"}% /
+                </S.HumidityText>
+              </S.HumidityInfoWrap>
+              {/* </S.Humidity4> */}
+            </div>
+          );
+        })}
+      </S.HumidityWrap>
+    );
+  };
+  const WeatherDataPM = () => {
+    return (
+      <S.HumidityWrap>
+        {dates.map((offset) => {
+          const weatherDataPM =
+            weatherInfo.weather[getDateWithOffset(offset)]?.["1200"];
+          console.log("weatherDataPM: ", weatherDataPM);
+          console.log("weatherDataPM: ", offset);
+          return (
+            <div
+              key={offset}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <S.HumidityInfoWrap>
+                <S.HumidityImg
+                  src={
+                    weatherDataPM
+                      ? Humidity(weatherDataPM.POP)
+                      : "/images/Cloud_SVG/humidity/humidity_low.svg"
+                  }
+                  alt="습도 이미지"
+                />
+                <S.HumidityText>
+                  {weatherDataPM ? weatherDataPM.POP : "-"}%
+                </S.HumidityText>
+              </S.HumidityInfoWrap>
+            </div>
+          );
+        })}
+      </S.HumidityWrap>
     );
   };
 
   // 오늘, 내일, 모레 3일간 구름 data
-  const WeatherCloudData = ({ offset }) => {
-    const weatherData =
-      weatherInfo.weather[getDateWithOffset(offset)]?.["0000"];
-    return <S.Clouds src={weatherData ? Cloud3(weatherData.SKY) : ""} />;
+  // const WeatherCloudData = ({ offset }) => {
+  //   const weatherDataAM =
+  //     weatherInfo.weather[getDateWithOffset(offset)]?.["0000"];
+  //   const weatherDataPM =
+  //     weatherInfo.weather[getDateWithOffset(offset)]?.["1200"];
+  //   return (
+  //     <div>
+  //       <S.Clouds src={weatherDataAM ? Cloud3(weatherDataAM.SKY) : ""} />
+  //       <S.Clouds src={weatherDataPM ? Cloud3(weatherDataPM.SKY) : ""} />
+  //     </div>
+  //   );
+  // };
+  const WeatherCloudDataAM = () => {
+    return (
+      <S.CloudsWrap>
+        {dates.map((offset) => {
+          const weatherDataAM =
+            weatherInfo.weather[getDateWithOffset(offset)]?.["0000"];
+
+          return (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              {weatherDataAM && Cloud3(weatherDataAM.SKY) !== undefined ? (
+                <S.Clouds
+                  src={weatherDataAM ? Cloud3(weatherDataAM.SKY) : ""}
+                />
+              ) : (
+                <p>-</p>
+              )}
+            </div>
+          );
+        })}
+      </S.CloudsWrap>
+    );
+  };
+
+  const WeatherCloudDataPM = () => {
+    return (
+      <S.CloudsWrap>
+        {dates.map((offset) => {
+          const weatherDataPM =
+            weatherInfo.weather[getDateWithOffset(offset)]?.["1200"];
+          console.log(
+            "weatherDataPMSKY: ",
+            weatherDataPM && Cloud3(weatherDataPM.SKY)
+          );
+          return (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              {weatherDataPM && Cloud3(weatherDataPM.SKY) !== undefined ? (
+                <S.Clouds
+                  src={weatherDataPM ? Cloud3(weatherDataPM.SKY) : ""}
+                />
+              ) : (
+                <p>-</p>
+              )}
+            </div>
+          );
+        })}
+      </S.CloudsWrap>
+    );
   };
 
   // 강수확률 - 4, 5, 6, 7일의 강수확률 - 오전
@@ -141,12 +306,13 @@ export default function MonthWeather({ weatherInfo }) {
         {Object.keys(AM_result).map((key) => (
           <S.HumidityInfoWrap key={key}>
             <S.HumidityImg src={Humidity(AM_result[key])} />
-            <S.HumidityText>{AM_result[key]}%</S.HumidityText>
+            <S.HumidityText>{AM_result[key]}% /</S.HumidityText>
           </S.HumidityInfoWrap>
         ))}
       </S.HumidityWrap>
     );
   };
+
   // 강수확률 - 4, 5, 6, 7일의 강수확률 - 오후
   const AfternoonWeatherDataPM = ({ dataSet }) => {
     const { AM_result, PM_result } = dataSet;
@@ -170,7 +336,14 @@ export default function MonthWeather({ weatherInfo }) {
     return (
       <S.CloudsWrap>
         {Object.keys(AM_result).map((key) => (
-          <div key={key}>
+          <div
+            key={key}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
             <S.Clouds src={Cloud2(AM_result[key])} alt="AM Weather" />
           </div>
         ))}
@@ -185,7 +358,14 @@ export default function MonthWeather({ weatherInfo }) {
     return (
       <S.CloudsWrap>
         {Object.keys(PM_result).map((key) => (
-          <div key={key}>
+          <div
+            key={key}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
             <S.Clouds src={Cloud2(PM_result[key])} alt="PM Weather" />
           </div>
         ))}
@@ -202,27 +382,32 @@ export default function MonthWeather({ weatherInfo }) {
           {/* 요일 출력 */}
           <S.TodaysWrap>
             {sortedDayCode.map((el) => (
-              <S.Todays key={el.code}>{el.day}</S.Todays>
+              <S.Todays key={el.code} code={el.code}>
+                {el.day}
+              </S.Todays>
             ))}
           </S.TodaysWrap>
 
           <S.Wrap34>
             {/* 오늘, 내일, 모레의 00시 날씨 데이터 */}
             <S.Wrap3>
-              <S.HumidityWrap>
+              <S.Humidity4>
+                <WeatherDataAM />
+                <WeatherDataPM />
+              </S.Humidity4>
+              {/* <S.HumidityWrap>
                 {dates.map((offset) => (
                   <div key={offset}>
                     <WeatherData offset={offset} />
                   </div>
                 ))}
-              </S.HumidityWrap>
-              <S.CloudsWrap>
-                {dates.map((offset) => (
-                  <div key={offset}>
-                    <WeatherCloudData offset={offset} />
-                  </div>
-                ))}
-              </S.CloudsWrap>
+              </S.HumidityWrap> */}
+              {/* <S.CloudsWrap> */}
+              <S.Cloud4>
+                <WeatherCloudDataAM />
+                <WeatherCloudDataPM />
+              </S.Cloud4>
+              {/* </S.CloudsWrap> */}
             </S.Wrap3>
 
             {/* 3일 뒤 날씨 데이터 */}
@@ -242,7 +427,7 @@ export default function MonthWeather({ weatherInfo }) {
           </S.Wrap34>
         </S.WeathersWrap>
       ) : (
-        <div>Loading...</div>
+        <div style={{ height: "280px" }}>Loading...</div>
       )}
     </S.Wrap>
   );
@@ -312,3 +497,19 @@ export default function MonthWeather({ weatherInfo }) {
 // 5. 푸터 구성하기
 // 6. 최적화 하기, 태그 요소 분리 등등
 // 7.
+//
+
+// 2024.09.11.수
+// 1. 폰트 추가 완
+// 2. 화면 가로 크기에 따른 크기 고정 함
+// 3. 일주일 오전 오후 셋팅 완
+// 4. 재난 안내 (예정)
+//
+// 해야할 것:
+// 1. 테두리 및 스타일 완성하기
+// 2. 현재 기온, 날씨 - 단기예보 데이터가 아닌 실시간 데이터로 가져오기(비가 내려도 단기예보로 안 맞음)
+// 3. 푸터 구성하기 - 사옹한 API, 폰트, 이미지 등 기제하기
+// 4. 최적화 하기 - 이미지, 텍스트 비어있는 공간 채우고 못 가져온 데이터에 대한 이미지, 텍스트
+//               - 더미 채우기
+// 5. 일주일 최저, 최고 기온 가져오기 - 3일치 데이터를 사용하면 되지만 3일뒤 날씨 데이터는
+//    강수확률, 구름 상태 정보만 알려줘서 추가 API를 요청을 해야함 - (고려..)

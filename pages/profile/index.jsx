@@ -219,9 +219,11 @@ export default function ProfilePage() {
             />
           </S.CurrentWeatherWrap>
           {/* 일주일 날씨 */}
-          <div style={{ width: "50%" }}>
-            <MonthWeather weatherInfo={weatherInfo} />
-          </div>
+          {/* <div
+            style={{ width: "50%", height: "30px", border: "3px solid blue" }}
+          > */}
+          <MonthWeather weatherInfo={weatherInfo} />
+          {/* </div> */}
           {/* <S.DailyWeatherWrap> */}
           {/* </S.DailyWeatherWrap> */}
         </S.WeatherSummaryWrap>

@@ -4,7 +4,7 @@ export const Wrap = styled.div`
   border: 2px solid red;
   border-radius: 10px;
   width: 100%;
-  min-width: 320px;
+  /* min-width: 320px; */
   padding: 10px;
   display: flex;
 `;
@@ -14,7 +14,7 @@ export const WeathersWrap = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  height: 280px;
+  /* height: 100%; */
 `;
 
 export const TodaysWrap = styled.div`
@@ -27,6 +27,9 @@ export const Todays = styled.div`
   /* border: 2px solid green; */
   display: flex;
   flex-direction: column;
+
+  color: ${(props) =>
+    props.code === 6 ? "blue" : props.code === 7 ? "red" : "black"};
 `;
 
 // 3,4일 전체 공간
