@@ -113,20 +113,6 @@ export default function ProfilePage() {
           daysWeather: daysWeatherResponse.data.response.body.items.item[0],
         });
 
-        // const locCity = String(locationResponse.data.address.city);
-        // const CityCode = locationCode.find((el) =>
-        //   locCity.includes(el.city.trim())
-        // );
-
-        // // 주간 날씨 데이터
-        // const daysWeatherResponse = await axios.get(
-        //   `http://apis.data.go.kr/1360000/MidFcstInfoService/getMidLandFcst?serviceKey=${apiKey}&numOfRows=10&pageNo=1&regId=${CityCode.code}&tmFc=${getFullDate()}&dataType=JSON`
-        // );
-        console.log("location: ", locationResponse);
-        console.log(
-          "daysWeatherResponse: ",
-          daysWeatherResponse.data.response.body.items.item[0]
-        );
         setLoading(false);
       }
     } catch (error) {
@@ -143,9 +129,9 @@ export default function ProfilePage() {
     fetchWeatherData();
   }, []);
 
-  // if (loading) {
-  //   return <LoadingPage />;
-  // }
+  if (loading) {
+    return <LoadingPage />;
+  }
 
   const weatherDays = weatherInfo.weather;
   // 현재시간 날씨 정보

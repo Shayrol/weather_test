@@ -1,19 +1,17 @@
 import styled from "@emotion/styled";
 
+// 각 시간대 날씨 정보 테두리
 export const HourlyWeatherWrap = styled.div`
-  border: 2px solid blue;
-  /* background-color: gray; */
+  box-shadow: 0px 0px 5px #444;
   border-radius: 10px;
   width: 100%;
   height: 150px;
   display: flex;
-  /* gap: 10px; */
 
   /* 가로스크롤 */
   overflow-x: auto;
   overflow-y: hidden;
   white-space: nowrap;
-  /* scroll-behavior: smooth; */
 
   ::-webkit-scrollbar {
     display: none;
@@ -22,10 +20,8 @@ export const HourlyWeatherWrap = styled.div`
   }
 `;
 
-// 날씨 표시
+// 각 시간대 전체공간 - 날짜, 시간, 이미지, 기온, 강수확률
 export const HourlyWeatherInfo = styled.div`
-  /* border: 1px solid blue; */
-  /* border-radius: 15px; */
   flex: 0 0 auto;
   width: 120px;
   height: 150px;
@@ -36,18 +32,17 @@ export const HourlyWeatherInfo = styled.div`
   align-items: center;
 `;
 
-// 날씨 시간 공간
+// 날씨, 시간 전체공간
 export const HourWrap = styled.div`
-  /* border: 1px solid red; */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
+
 // 날씨 날짜
 export const DateInfo = styled.p`
   font-size: 8px;
-  /* font-weight: 600; */
 `;
 
 // 날씨 시간
@@ -70,24 +65,21 @@ export const Temperature = styled.p`
   font-weight: 700;
 `;
 
-// 강수확률
+// 강수확률 전체공간
 export const PrecipitationProbabilityWrap = styled.div`
   margin-top: 5px;
   display: flex;
   align-items: center;
 `;
 
+// 강수확률 텍스트
 export const PrecipitationProbability = styled.p`
   font-size: 14px;
   font-weight: 700;
 `;
 
+// 강수확률 이미지
 export const PrecipitationProbabilityImg = styled.img`
   width: 14px;
   height: 14px;
-`;
-
-export const ImgSGV = styled.img`
-  width: 50px;
-  height: 50px;
 `;

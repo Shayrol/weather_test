@@ -1,19 +1,12 @@
-import { fetchMonthWeather } from "@/src/commons/libraries/api/fetchMonthWeather";
-
 import { Humidity } from "@/src/commons/libraries/humidity";
-import { getDate, getFullDate } from "@/src/commons/libraries/utils";
-import { useEffect, useState } from "react";
+import { getDate } from "@/src/commons/libraries/utils";
 import _ from "lodash";
-import { useRecoilValue } from "recoil";
-import { isWeatherData } from "@/src/commons/stores";
 import { Cloud2, Cloud3 } from "@/src/commons/libraries/cloud";
-// import * as S from "./MonthWeather.styles";
-import * as S from "./Test";
+import * as S from "./MonthWeather.styles";
 
 export default function MonthWeather({ weatherInfo }) {
-  const date = new Date();
-
   const dates = [0, 1, 2]; // 0: 오늘, 1: 내일, 2: 모레
+  const data = weatherInfo.daysWeather; // 4일 데이터
 
   const dayCode = [
     { day: "월요일", code: 1 },
@@ -26,8 +19,8 @@ export default function MonthWeather({ weatherInfo }) {
   ];
 
   // 현재 요일 구하기 (일요일은 0, 월요일은 1, ... 토요일은 6)
-  const today = new Date().getDay(); // Sunday: 0, Monday: 1, ..., Saturday: 6
-  const todayCode = today === 0 ? 7 : today; // Sunday should be 7 in your case
+  const today = new Date().getDay();
+  const todayCode = today === 0 ? 7 : today;
 
   // 현재 요일 기준으로 배열 재정렬
   const sortedDayCode = [
@@ -36,13 +29,8 @@ export default function MonthWeather({ weatherInfo }) {
     // 인덱스 3번 이후 다 자름: 월, 화, 수
     ...dayCode.slice(0, todayCode - 1),
   ];
-  const Todays = sortedDayCode.map((el) => el.day);
 
-  console.log("요일 순서: ", Todays);
-
-  const data = weatherInfo.daysWeather;
-
-  // 3일 뒤 강수확률
+  // 4일 강수확률
   const daysData = () => {
     const now = new Date();
     const hours = now.getHours();
@@ -92,7 +80,6 @@ export default function MonthWeather({ weatherInfo }) {
 
       return { AM_result, PM_result };
     } else {
-      // const _.pick(weatherInfo.weather.)
       const PM_result = _.pick(data, ["wf3Pm", "wf4Pm", "wf5Pm", "wf6Pm"]);
       const AM_result = _.pick(data, ["wf3Am", "wf4Am", "wf5Am", "wf6Am"]);
 
@@ -100,56 +87,18 @@ export default function MonthWeather({ weatherInfo }) {
     }
   };
 
+  // 4일 강수확률, 구름 오전, 오후
   const pickedDays = daysData();
   const pickedCloudDays = daysCloudData();
 
+  // 현재 날짜로부터 3일간의 날짜 - 년, 월 넘어감
   const getDateWithOffset = (offset = 0) => {
     const today = new Date();
     today.setDate(today.getDate() + offset);
     return getDate(today);
   };
 
-  // 날씨 데이터를 렌더링하는 컴포넌트
-  // 오늘, 내일, 모레 3일간 강수확률 data
-
-  // const WeatherData = ({ offset }) => {
-  //   const weatherDataAM =
-  //     weatherInfo.weather[getDateWithOffset(offset)]?.["0000"];
-  //   const weatherDataPM =
-  //     weatherInfo.weather[getDateWithOffset(offset)]?.["1200"];
-  //   return (
-
-  //     <S.Humidity4>
-  //       <S.HumidityInfoWrap>
-  //         <S.HumidityImg
-  //           src={
-  //             weatherDataAM
-  //               ? Humidity(weatherDataAM.POP)
-  //               : "/images/Cloud_SVG/humidity/humidity_low.svg"
-  //           }
-  //           alt="습도 이미지"
-  //         />
-  //         <S.HumidityText>
-  //           {weatherDataAM ? weatherDataAM.POP : "-"}%
-  //         </S.HumidityText>
-  //       </S.HumidityInfoWrap>
-  //       <S.HumidityInfoWrap>
-  //         <S.HumidityImg
-  //           src={
-  //             weatherDataPM
-  //               ? Humidity(weatherDataPM.POP)
-  //               : "/images/Cloud_SVG/humidity/humidity_low.svg"
-  //           }
-  //           alt="습도 이미지"
-  //         />
-  //         <S.HumidityText>
-  //           {weatherDataPM ? weatherDataPM.POP : "-"}%
-  //         </S.HumidityText>
-  //       </S.HumidityInfoWrap>
-  //     </S.Humidity4>
-  //   );
-  // };
-
+  // 강수확률 - 1, 2, 3일의 구름 - 오전
   const WeatherDataAM = () => {
     return (
       <S.HumidityWrap>
@@ -165,7 +114,6 @@ export default function MonthWeather({ weatherInfo }) {
                 justifyContent: "center",
               }}
             >
-              {/* <S.Humidity4> */}
               <S.HumidityInfoWrap>
                 <S.HumidityImg
                   src={
@@ -179,13 +127,14 @@ export default function MonthWeather({ weatherInfo }) {
                   {weatherDataAM ? weatherDataAM.POP : "-"}% /
                 </S.HumidityText>
               </S.HumidityInfoWrap>
-              {/* </S.Humidity4> */}
             </div>
           );
         })}
       </S.HumidityWrap>
     );
   };
+
+  // 강수확률 - 1, 2, 3일의 구름 - 오후
   const WeatherDataPM = () => {
     return (
       <S.HumidityWrap>
@@ -223,19 +172,7 @@ export default function MonthWeather({ weatherInfo }) {
     );
   };
 
-  // 오늘, 내일, 모레 3일간 구름 data
-  // const WeatherCloudData = ({ offset }) => {
-  //   const weatherDataAM =
-  //     weatherInfo.weather[getDateWithOffset(offset)]?.["0000"];
-  //   const weatherDataPM =
-  //     weatherInfo.weather[getDateWithOffset(offset)]?.["1200"];
-  //   return (
-  //     <div>
-  //       <S.Clouds src={weatherDataAM ? Cloud3(weatherDataAM.SKY) : ""} />
-  //       <S.Clouds src={weatherDataPM ? Cloud3(weatherDataPM.SKY) : ""} />
-  //     </div>
-  //   );
-  // };
+  // 구름 - 1, 2, 3일의 구름 - 오전
   const WeatherCloudDataAM = () => {
     return (
       <S.CloudsWrap>
@@ -256,7 +193,17 @@ export default function MonthWeather({ weatherInfo }) {
                   src={weatherDataAM ? Cloud3(weatherDataAM.SKY) : ""}
                 />
               ) : (
-                <p>-</p>
+                <p
+                  style={{
+                    width: "25px",
+                    height: "25px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  -
+                </p>
               )}
             </div>
           );
@@ -265,16 +212,14 @@ export default function MonthWeather({ weatherInfo }) {
     );
   };
 
+  // 구름 - 1, 2, 3일의 구름 - 오후
   const WeatherCloudDataPM = () => {
     return (
       <S.CloudsWrap>
         {dates.map((offset) => {
           const weatherDataPM =
             weatherInfo.weather[getDateWithOffset(offset)]?.["1200"];
-          console.log(
-            "weatherDataPMSKY: ",
-            weatherDataPM && Cloud3(weatherDataPM.SKY)
-          );
+
           return (
             <div
               style={{
@@ -288,7 +233,17 @@ export default function MonthWeather({ weatherInfo }) {
                   src={weatherDataPM ? Cloud3(weatherDataPM.SKY) : ""}
                 />
               ) : (
-                <p>-</p>
+                <p
+                  style={{
+                    width: "25px",
+                    height: "25px",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  -
+                </p>
               )}
             </div>
           );
@@ -299,7 +254,7 @@ export default function MonthWeather({ weatherInfo }) {
 
   // 강수확률 - 4, 5, 6, 7일의 강수확률 - 오전
   const AfternoonWeatherDataAM = ({ dataSet }) => {
-    const { AM_result, PM_result } = dataSet;
+    const { AM_result } = dataSet;
 
     return (
       <S.HumidityWrap>
@@ -315,7 +270,7 @@ export default function MonthWeather({ weatherInfo }) {
 
   // 강수확률 - 4, 5, 6, 7일의 강수확률 - 오후
   const AfternoonWeatherDataPM = ({ dataSet }) => {
-    const { AM_result, PM_result } = dataSet;
+    const { PM_result } = dataSet;
 
     return (
       <S.HumidityWrap>
@@ -331,7 +286,7 @@ export default function MonthWeather({ weatherInfo }) {
 
   // 구름 - 4, 5, 6, 7일의 구름 - 오전
   const WeatherCloudImgAM = ({ dataSet }) => {
-    const { AM_result, PM_result } = dataSet;
+    const { AM_result } = dataSet;
 
     return (
       <S.CloudsWrap>
@@ -353,7 +308,7 @@ export default function MonthWeather({ weatherInfo }) {
 
   // 구름 - 4, 5, 6, 7일의 구름 - 오후
   const WeatherCloudImgPM = ({ dataSet }) => {
-    const { AM_result, PM_result } = dataSet;
+    const { PM_result } = dataSet;
 
     return (
       <S.CloudsWrap>
@@ -389,40 +344,34 @@ export default function MonthWeather({ weatherInfo }) {
           </S.TodaysWrap>
 
           <S.Wrap34>
-            {/* 오늘, 내일, 모레의 00시 날씨 데이터 */}
+            {/* 3일 날씨 데이터 */}
             <S.Wrap3>
-              <S.Humidity4>
+              {/* 3일 오전, 오후 강수확률 */}
+              <S.Humidity34>
                 <WeatherDataAM />
                 <WeatherDataPM />
-              </S.Humidity4>
-              {/* <S.HumidityWrap>
-                {dates.map((offset) => (
-                  <div key={offset}>
-                    <WeatherData offset={offset} />
-                  </div>
-                ))}
-              </S.HumidityWrap> */}
-              {/* <S.CloudsWrap> */}
-              <S.Cloud4>
+              </S.Humidity34>
+
+              {/* 3일 오전, 오후 구름 */}
+              <S.Cloud34>
                 <WeatherCloudDataAM />
                 <WeatherCloudDataPM />
-              </S.Cloud4>
-              {/* </S.CloudsWrap> */}
+              </S.Cloud34>
             </S.Wrap3>
 
-            {/* 3일 뒤 날씨 데이터 */}
+            {/* 4일 날씨 데이터 */}
             <S.Wrap4>
-              {/* 3일 뒤 오전, 오후 강수확률 */}
-              <S.Humidity4>
+              {/* 4일 오전, 오후 강수확률 */}
+              <S.Humidity34>
                 <AfternoonWeatherDataAM dataSet={pickedDays} />
                 <AfternoonWeatherDataPM dataSet={pickedDays} />
-              </S.Humidity4>
+              </S.Humidity34>
 
-              {/* 3일 뒤 오전, 오후 구름 */}
-              <S.Cloud4>
+              {/* 4일 오전, 오후 구름 */}
+              <S.Cloud34>
                 <WeatherCloudImgAM dataSet={pickedCloudDays} />
                 <WeatherCloudImgPM dataSet={pickedCloudDays} />
-              </S.Cloud4>
+              </S.Cloud34>
             </S.Wrap4>
           </S.Wrap34>
         </S.WeathersWrap>
@@ -499,7 +448,7 @@ export default function MonthWeather({ weatherInfo }) {
 // 7.
 //
 
-// 2024.09.11.수
+// 2024.09.12.목
 // 1. 폰트 추가 완
 // 2. 화면 가로 크기에 따른 크기 고정 함
 // 3. 일주일 오전 오후 셋팅 완
@@ -513,3 +462,10 @@ export default function MonthWeather({ weatherInfo }) {
 //               - 더미 채우기
 // 5. 일주일 최저, 최고 기온 가져오기 - 3일치 데이터를 사용하면 되지만 3일뒤 날씨 데이터는
 //    강수확률, 구름 상태 정보만 알려줘서 추가 API를 요청을 해야함 - (고려..)
+//
+
+// 2024.09.12.목
+// 1. 테두리 및 스타일 완
+// 2. 최적화 - 데이터 다 불러올 때 까지의 로딩 페이지 생성, 컴포넌트 최적화 아직 안됨
+//
+//

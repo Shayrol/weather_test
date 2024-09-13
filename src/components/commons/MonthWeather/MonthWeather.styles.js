@@ -1,134 +1,108 @@
 import styled from "@emotion/styled";
 
+// 일주일 날씨 테두리 영역
 export const Wrap = styled.div`
-  /* border: 1px solid blue; */
+  box-shadow: 0px 0px 5px #444;
   border-radius: 10px;
   display: flex;
+  width: 100%;
   padding: 10px;
-  width: 100%;
-  height: 310px;
-`;
-export const WeatherWrap = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 30px;
-  width: 100%;
-  /* justify-content: space-between; */
 `;
 
-// 요일
-export const SortedDayWrap = styled.div`
-  /* border: 1px solid red; */
+// 일주일 날씨 전체공간
+export const WeathersWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+`;
+
+// 일주일 전체공간
+export const TodaysWrap = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
+  margin-left: 20px;
+`;
+
+// 월, 화, 수, 목, 금, 토, 일
+export const Todays = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  /* 토, 일요일 색상 구분 */
+  color: ${(props) =>
+    props.code === 6 ? "blue" : props.code === 7 ? "red" : "black"};
+`;
+
+// 강수확률, 구름 전체공간 - 3, 4일 전체 공간
+export const Wrap34 = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+`;
+
+// 강수확률, 구름 전체공간 - 3일
+export const Wrap3 = styled.div`
+  display: flex;
+  width: 100%;
+  height: 42.87%;
   justify-content: space-around;
   align-items: center;
-  width: 30%;
-`;
-export const SortedDay = styled.p`
-  border: 1px solid red;
-  font-size: 14px;
-  font-weight: 600;
 `;
 
-// 일주일 강수확률, 구름 이미지 전체 공간
-export const WeatherDaysWrap = styled.div`
-  /* border: 1px solid red; */
-  width: 100%;
-`;
-
-// 3일, 남은 4일 강수확률, 강수확률, 구름 이미지 공간
-export const WeatherDayWrap = styled.div`
-  border: 1px solid blue;
+// 강수확률, 구름 전체공간 -  4일
+export const Wrap4 = styled.div`
   display: flex;
-  flex-direction: row;
-  /* align-items: center; */
+  width: 100%;
+  height: 57.16%;
   justify-content: space-around;
-  width: 100%;
-  margin-bottom: 20px;
+  align-items: center;
 `;
 
-// 4, 5, 6, 7일 강수확률 이미지
-export const Weather4567DayWrap = styled.div`
-  /* border: 1px solid blue; */
+// 공통 강수확률 공간 - 오전, 오후 포함
+export const Humidity34 = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-`;
-
-//
-//
-//
-//
-//
-
-// WeatherCloudData styled - 구름 이미지 FC
-export const WeatherCloud3DayDataWrap = styled.div`
-  border: 1px solid red;
-  width: 25px;
-  height: 25px;
-  /* margin-right: 20px; */
-`;
-
-// 함수 WeatherData styled - 강수확률 FC
-export const Weather3DayDataWrap = styled.div`
-  border: 1px solid blue;
-  display: flex;
-  /* align-items: center; */
-`;
-// 강수확률 이미지 - 물방울 FC
-export const Weather3DayDataImg = styled.img`
-  /* border: 1px solid red; */
-  width: 15px;
-`;
-// 강수확률 텍스트 FC
-export const Weather3DayDataText = styled.p`
-  /* border: 1px solid red; */
-  font-size: 12px;
-`;
-
-//
-//
-//
-
-// //////////////////////////////////////////////////////////////////////////////
-// 4, 5, 6, 7일 함수내 스타일
-
-// 강수확률 오전/오후 전체 공간 🎈🎈
-export const HumidityWrap = styled.div`
-  border: 1px solid red;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   height: 100%;
 `;
-// 강수확률 이미지, 텍스트 공간
-export const HumidityInfoWrap = styled.div`
-  border: 1px solid red;
+// 공통 구름 공간 - 오전, 오후 포함
+export const Cloud34 = styled.div`
   display: flex;
-  flex-direction: row;
-  /* align-items: center; */
-  /* justify-content: space-around; */
-  width: 100%;
-`;
-// 강수확률 텍스트
-export const HumidityInfoText = styled.p`
-  font-size: 12px;
-`;
-export const HumidityInfoImg = styled.img`
-  width: 15px;
+  height: 100%;
 `;
 
-// 구름 오전, 오후 전체 공간
-export const CloudWrap = styled.div`
-  border: 1px solid red;
-  display: flex;
-  flex-direction: row;
-`;
-// 구름 오전 공간
-export const CloudAMWrap = styled.div`
-  border: 1px solid red;
+// 공통 강수확률 공간 - 오전, 오후 포함
+export const HumidityWrap = styled.div`
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+`;
+
+// 공통 강수확률, 이미지 공간 - 오전, 오후 각각 개인 이미지
+export const HumidityInfoWrap = styled.div`
+  display: flex;
+`;
+
+// 공통 구름 이미지 공간
+export const CloudsWrap = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+`;
+
+// 공통 구름 이미지
+export const Clouds = styled.img`
+  width: 25px;
+`;
+
+// 공통 강수확률 텍스트
+export const HumidityText = styled.p`
+  font-size: 12px;
+`;
+
+// 공통 강수확률 이미지
+export const HumidityImg = styled.img`
+  width: 15px;
 `;

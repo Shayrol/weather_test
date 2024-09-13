@@ -34,14 +34,14 @@ export default function AirQuality() {
     <S.Wrap>
       <S.PMWrap>
         <S.PMTitle>미세먼지</S.PMTitle>
-        <S.PMImg src={PM10(pm10).img} />
+        <S.PMImg src={PM10(pm10).img ?? "/images/PM_icon/Good.png"} />
         <S.PMText>{pm10} ㎍/㎥</S.PMText>
         <S.PMText>{PM10(pm10).name}</S.PMText>
       </S.PMWrap>
       <S.PMWrapLine />
       <S.PMWrap>
         <S.PMTitle>초미세먼지</S.PMTitle>
-        <S.PMImg src={PM25(pm25).img} />
+        <S.PMImg src={PM25(pm25).img ?? "/images/PM_icon/Good.png"} />
         <S.PMText>{pm25} ㎍/㎥</S.PMText>
         <S.PMText>{PM25(pm25).name}</S.PMText>
       </S.PMWrap>

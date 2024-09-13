@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 
+// 페이지 전체 공간
 export const Wrap = styled.div`
   background-color: #fff;
   min-height: 100vh;
@@ -10,23 +11,21 @@ export const Wrap = styled.div`
   font-family: "HakgyoansimDunggeunmisoTTF-B";
 `;
 
-// 메뉴 탭
-export const MenuTapWrap = styled.div`
-  border: 1px solid red;
-  border-radius: 20px 20px 0;
-  width: 15%;
-`;
+// 메뉴 탭 - (추가할지 고민중)
+// export const MenuTapWrap = styled.div`
+//   border: 1px solid red;
+//   border-radius: 20px 20px 0;
+//   width: 15%;
+// `;
 
-// 단기예보 공간 -메뉴 탭과 분리하기 위함
+// 현재 페이지 - 날씨 정보 전체공간
 export const WeatherDetailsWrap = styled.div`
-  border: 1px solid red;
-  width: 1200px;
-  /* min-width: 600px; */
-  padding: 30px;
-  padding-top: 80px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 1200px;
+  padding: 30px;
+  padding-top: 80px;
 `;
 
 // 현재 날씨 정보 구름 이미지
@@ -35,13 +34,14 @@ export const CloudImg = styled.img`
   height: 120px;
 `;
 
-// 현재 날씨 정보 공간
+// 현재 날씨 정보 전체공간
 export const WeatherWrap = styled.div`
   position: relative;
   display: flex;
   gap: 20px;
 `;
 
+// 현재 위치, 기온 정보 공간
 export const InfoWrap = styled.div`
   display: flex;
   flex-direction: column;
@@ -49,14 +49,8 @@ export const InfoWrap = styled.div`
   z-index: 1;
 `;
 
-// 습도
-export const Humidity = styled.div`
-  border: 1px solid red;
-`;
-
 // 기온
 export const Temp = styled.span`
-  /* border: 1px solid red; */
   font-size: 54px;
   font-weight: 700;
   line-height: 50px;
@@ -70,30 +64,27 @@ export const Cloud = styled.p`
 
 // 지역 공간
 export const LocWrap = styled.div`
-  /* border: 1px solid red; */
   display: flex;
   margin-top: 5px;
 `;
 
 // 지역
 export const Loc = styled.div`
-  /* border: 1px solid red; */
+  display: flex;
+  align-items: center;
   font-size: 16px;
   font-weight: 700;
 `;
 
 // 지역 이미지
 export const LocImg = styled.img`
-  /* border: 1px solid red; */
   width: 25px;
 `;
 
-// 날씨 상세 정보 공간
+// 현재 날씨정보 + 일주일 날씨 정보 전체 공간 - (습도, 강수확률, 바람) + 시간별 날씨 + 요일별 날씨
 export const WeatherSummaryWrap = styled.div`
-  border: 1px solid red;
   display: flex;
   justify-content: space-around;
-  /* height: 300px; */
   width: 100%;
   max-width: 820px;
   min-width: 650px;
@@ -101,9 +92,8 @@ export const WeatherSummaryWrap = styled.div`
   margin-top: 30px;
 `;
 
-// 현재, 시간별 날씨정보 공간
+// 현재, 시간별 날씨정보 전체공간 (습도, 강수확률 바람) + 시간별 날씨
 export const CurrentWeatherWrap = styled.div`
-  /* border: 1px solid blue; */
   width: 50%;
   min-width: 320px;
   display: flex;
@@ -111,19 +101,17 @@ export const CurrentWeatherWrap = styled.div`
   gap: 10px;
 `;
 
-// 현재 시간 상세 날씨정보 - 습도, 풍속 등등
+// 현재 상세 날씨정보 전체공간 - 습도, 강수확률, 바람
 export const WeatherInfoWrap = styled.div`
-  /* border: 1px solid red; */
   display: flex;
   gap: 10px;
 `;
 
-// 햔재 상세 날씨정보
+// 현재 상세 날씨정보 - 습도, 강수확률, 바람 정보
 export const WeatherInfo = styled.div`
-  border: 2px solid red;
+  box-shadow: 0px 0px 5px #444;
   border-radius: 10px;
   width: 100%;
-  /* min-width: 100px; */
   height: 150px;
   display: flex;
   flex-direction: column;
@@ -131,63 +119,45 @@ export const WeatherInfo = styled.div`
   align-items: center;
 `;
 
+// 습도, 강수확률, 바람 이미지
 export const WeatherInfoImg = styled.img`
   width: 35px;
   margin-bottom: 10px;
 `;
 
+// 습도, 강수확률, 바람 텍스트
 export const WeatherInfoText = styled.p`
   font-size: 14px;
   font-weight: 700;
 `;
 
-// 시간별 날씨정보 공간
-export const HourlyWeatherWrap = styled.div`
-  /* border: 1px solid blue; */
-  border-radius: 10px;
-  width: 100%;
-  height: 70px;
-`;
-
-// 요일별 날씨정보 공간
-export const DailyWeatherWrap = styled.div`
-  border: 2px solid blue;
-  border-radius: 10px;
-  width: 50%;
-`;
-
-// 일몰, 일출 / 미세먼지 공간
+// 일몰, 일출 / 미세먼지 전체공간
 export const AirAndSunInfoWrap = styled.div`
-  border: 1px solid red;
   display: flex;
   justify-content: space-between;
   margin-top: 10px;
   width: 820px;
-  /* max-width: 820px; */
   gap: 10px;
 `;
 
+// 일몰, 일출
 export const SunInfoWrap = styled.div`
-  border: 1px solid blue;
+  box-shadow: 0px 0px 5px #444;
   border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 50%;
-  /* min-width: 320px; */
   height: 150px;
 `;
 
+// 미세먼지
 export const AirInfoWrap = styled.div`
-  border: 1px solid red;
+  box-shadow: 0px 0px 5px #444;
   border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 50%;
-  /* min-width: 320px; */
   height: 150px;
 `;
-
-// 여기 변경됨
-// ㅇㅇ

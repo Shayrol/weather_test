@@ -6,15 +6,12 @@ import { Cloud } from "@/src/commons/libraries/cloud";
 
 export default function HourlyWeather({ weatherDays, sunrise, sunset }) {
   const date = new Date();
-  const currentHour = date.getHours();
   const hour = date.getHours();
-  const HourStr = String(hour).padStart(2, "0") + "00";
-  const fullDate = getDate(date);
-  // const time12Hour = currentHour <= 12 ? currentHour : currentHour - 12;
+  const HourStr = String(hour).padStart(2, "0") + "00"; // 현재 시간과 비교하기 위함
+  const fullDate = getDate(date); // 현재 날짜와 비교하기 위함
   const propsSunrise = sunrise;
   const propsSunset = sunset;
-
-  const wrapRef = useRef(null);
+  const wrapRef = useRef(null); // 가로 스크롤 위함
 
   // 가로 스크롤
   useEffect(() => {
@@ -37,17 +34,17 @@ export default function HourlyWeather({ weatherDays, sunrise, sunset }) {
     };
   }, []);
 
+  // 시간대별 정보 출력
   const getSortedWeatherData = () => {
     const sortedData = [];
 
     // 날짜를 순서대로 가져오기
     Object.keys(weatherDays).forEach((day) => {
-      // 각 날짜의 시간을 순서대로 배열에 추가
+      // 각 날짜의 시간을 순서대로 배열에 추가 - 오름차순
       Object.keys(weatherDays[day])
         .sort((a, b) => parseInt(a) - parseInt(b)) // 시간을 정렬 (예: 1500, 1600, ...)
         .forEach((time) => {
-          // 현재 시간 이전의 data 출력을 막기 위한 조건
-          // 같은 날짜에 현재 시간의 이상만 data를 출력을 한다.
+          // 현재 시간의 다음 시간대 이상만 출력 - (예: 현재시간 15시인 경우 16시부터 출력)
           if (day === fullDate && time > HourStr) {
             sortedData.push({ day, time, ...weatherDays[day][time] });
           }
