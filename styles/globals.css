@@ -114,3 +114,8 @@ a {
   font-weight: 700;
   font-style: normal;
 }
+
+html,
+body {
+  font-family: "HakgyoansimDunggeunmisoTTF-B", sans-serif;
+}

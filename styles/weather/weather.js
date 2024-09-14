@@ -2,13 +2,17 @@ import styled from "@emotion/styled";
 
 // 페이지 전체 공간
 export const Wrap = styled.div`
-  background-color: #fff;
+  /* background-color: skyblue; */
   min-height: 100vh;
   display: flex;
   justify-content: center;
   padding: 0 100px;
   // 눈누 - 학교안심 둥근미소 폰트
   font-family: "HakgyoansimDunggeunmisoTTF-B";
+
+  background-color: ${({ isScrolled }) =>
+    isScrolled ? "skyblue" : "transparent"};
+  transition: background-color 0.3s ease;
 `;
 
 // 메뉴 탭 - (추가할지 고민중)

@@ -61,7 +61,6 @@ export default function HourlyWeather({ weatherDays, sunrise, sunset }) {
   };
 
   const weatherDataList = getSortedWeatherData();
-  console.log("weatherDays: ", weatherDays);
 
   return (
     <S.HourlyWeatherWrap ref={wrapRef}>

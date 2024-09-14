@@ -20,5 +20,5 @@ const HumidityArray = [
 
 export const Humidity = (item) => {
   const result = HumidityArray.find((el) => item <= el.code);
-  return result ? result.img : "";
+  return result ? result.img : "/images/Cloud_SVG/humidity/humidity_low.svg";
 };

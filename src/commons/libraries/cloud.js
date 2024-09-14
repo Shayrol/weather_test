@@ -3,6 +3,11 @@
 // 구름 코드
 const CloudArray = [
   {
+    name: "Loading..",
+    code: "0",
+    img: "/images/Cloud_SVG/fill/Day/clear-day.svg",
+  },
+  {
     name: "맑음",
     code: "1",
     img_day: "/images/Cloud_SVG/fill/Day/clear-day.svg",
@@ -107,21 +112,20 @@ export const Cloud = (PTYCode, CloudCode, Time, sunrise, sunset) => {
     return sunLight ? result.img_day : result.img_night;
   } else {
     const result = CloudArray.find((el) => el.pty_code === PTYCode);
-    return result ? result.img : "";
+    return result ? result.img : "/images/Cloud_SVG/fill/Day/clear-day.svg";
   }
 };
 
 export const Cloud2 = (CloudName) => {
   if (CloudName) {
-    console.log("Cloud2: ", CloudName);
     const result = dddd.find((el) => el.name === "흐림");
-    return result ? result.img : "/images/Cloud_SVG/fill/overcast-drizzle.svg";
+    return result ? result.img : "/images/Cloud_SVG/fill/Day/clear-day.svg";
   }
 };
 
 export const Cloud3 = (CloudCode) => {
   if (CloudCode) {
     const result = dddd.find((el) => el.code === CloudCode);
-    return result ? result.img : "/images/Cloud_SVG/fill/overcast-drizzle.svg";
+    return result ? result.img : "/images/Cloud_SVG/fill/Day/clear-day.svg";
   }
 };

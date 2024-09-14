@@ -4,7 +4,7 @@ export const getDate = (date) => {
   const mm = ("0" + (_date.getMonth() + 1)).slice(-2);
   const dd = ("0" + _date.getDate()).slice(-2);
 
-  // 20240909 - 2024년09월09일
+  // 20240909 - 2024년09월09일 (현재날씨)
   return `${yyyy}${mm}${dd}`;
 };
 
@@ -18,25 +18,6 @@ export const getDateAPI = (date) => {
   // 20240909 - 2024년09월08일
   return `${yyyy}${mm}${dd}`;
 };
-
-// export const getFullDate = () => {
-//   const _date = new Date();
-//   const yyyy = _date.getFullYear();
-//   const mm = ("0" + String(_date.getMonth() + 1)).slice(-2);
-//   const dd = ("0" + String(_date.getDate() - 1)).slice(-2);
-//   const HH = ("0" + String(_date.getHours())).slice(-2);
-
-//   // 00시 ~ 06시까지는 해당 요일의 data를 못 불러오고
-//   // 06시, 18시에 하루 2번 데이터를 업데이트를 하고 24시간 유지된다.
-//   // 우리가 취해야 할 데이터 시간은
-//   // 00시~06시는 어제의 날짜의 18시 data를 사용을 해야 하는 것
-//   // 06시~18시는 오늘의 오전 data 사용
-//   // 18시~ 다음날 06시는 오늘의 data 사용
-
-//   // const MM = ("0" + String(_date.getMinutes())).slice(-2);
-//   // 202409092100 - 2024년09월09일06시00분 - 06,18시 데이터만 불러오고 24시간 동안 데이터를 유지함
-//   return `${yyyy}${mm}${dd}0600`;
-// };
 
 // 06시 기준으로 24시, 06시 부터 09일 이라면 => 다음날 10일 05시 59분 까지 09일 / 이후 10일 적용
 export const getFullDate = () => {
@@ -63,43 +44,6 @@ export const getFullDate = () => {
   }
 
   return `${resultDate}${time}`;
-};
-
-export const getTime = (date) => {
-  const _date = new Date(date);
-  const HH = ("0" + String(_date.getHours())).slice(-2);
-  const MM = ("0" + String(_date.getMinutes())).slice(-2);
-  const minutes = MM <= 30 ? "00" : "30";
-  // 초단기예보는 현재시간이 21~23시 사이에 있으면 data를 불러오지 못한다.
-  const hours = "21" === HH ? "20" : HH === "22" && HH === "23" ? "00" : "01";
-
-  return `${HH}${minutes}`;
-};
-
-// 단기예보조회
-export const getTime2 = (date) => {
-  const _date = new Date(date);
-  const H = ("0" + String(_date.getHours())).slice(-2);
-
-  const HH = ("0" + String(_date.getHours())).slice(-2);
-  const MM = ("0" + String(_date.getMinutes())).slice(-2);
-  const minutes = MM <= 30 ? "00" : "30";
-  // 예보는 현재시간이 21~23시 사이에 있으면 data를 불러오지 못한다.
-  const hours = "21" === HH ? "20" : HH === "22" && HH === "23" ? "00" : "01";
-
-  // 단기예보를 1시간 이전의 값을 입력을 해야 현재시간의 데이터를 불러옴
-  // 단기예보가 일주일의 날씨예보 데이터를 불러와야 하는데 그렇지 못하고 있음...
-
-  return `${H}30`;
-};
-
-export const fullDate = (date) => {
-  const _date = new Date(date);
-  const FullYEAR = String(_date.getFullYear());
-  const MONTH = ("0" + String(_date.getMonth() + 1)).slice(-2);
-  const DATE = ("0" + String(_date.getDate())).slice(-2);
-
-  return `${FullYEAR}${MONTH}${DATE}`;
 };
 
 // 18, 19, 20시인 경우 17시로 반환함
@@ -146,6 +90,10 @@ export const formatDate = (day) => {
   return `${year}년 ${month}월 ${date}일`;
 };
 
-export const fullDay = () => {
-  const date = new Date();
+// 1시간 전 - 현재시간 00시 => 23시 -- 2300
+export const getOneHourAgo = () => {
+  const now = new Date(); // 현재 시간 가져오기
+  now.setHours(now.getHours() - 1); // 1시간 빼기
+  const hour = String(now.getHours()).padStart(2, "0") + "00"; // 2자리 문자열로 포맷
+  return hour;
 };

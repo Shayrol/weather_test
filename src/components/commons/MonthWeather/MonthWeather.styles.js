@@ -106,3 +106,13 @@ export const HumidityText = styled.p`
 export const HumidityImg = styled.img`
   width: 15px;
 `;
+
+// Loading..
+export const LoadingWrap = styled.div`
+  /* border: 1px solid red; */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+`;

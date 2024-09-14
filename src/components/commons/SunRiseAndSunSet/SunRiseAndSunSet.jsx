@@ -13,12 +13,12 @@ export default function SunriseSunsetTimes({ sunTime }) {
     <S.Wrap>
       <S.SunTimeWrap>
         <S.SunTimeImg src="/images/Sunrise-Sunset/sunrise.svg" />
-        <S.SunTimeText>{sunriseTime}</S.SunTimeText>
+        <S.SunTimeText>{sunTime ? sunriseTime : "Loading.."}</S.SunTimeText>
       </S.SunTimeWrap>
       <S.SunWrapLine />
       <S.SunTimeWrap>
         <S.SunTimeImg src="/images/Sunrise-Sunset/sunset.svg" />
-        <S.SunTimeText>{sunsetTime}</S.SunTimeText>
+        <S.SunTimeText>{sunTime ? sunsetTime : "Loading.."}</S.SunTimeText>
       </S.SunTimeWrap>
     </S.Wrap>
   );

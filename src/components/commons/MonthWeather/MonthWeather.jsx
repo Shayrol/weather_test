@@ -141,8 +141,8 @@ export default function MonthWeather({ weatherInfo }) {
         {dates.map((offset) => {
           const weatherDataPM =
             weatherInfo.weather[getDateWithOffset(offset)]?.["1200"];
-          console.log("weatherDataPM: ", weatherDataPM);
-          console.log("weatherDataPM: ", offset);
+          // console.log("weatherDataPM: ", weatherDataPM);
+          // console.log("weatherDataPM: ", offset);
           return (
             <div
               key={offset}
@@ -182,6 +182,7 @@ export default function MonthWeather({ weatherInfo }) {
 
           return (
             <div
+              key={offset}
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -222,6 +223,7 @@ export default function MonthWeather({ weatherInfo }) {
 
           return (
             <div
+              key={offset}
               style={{
                 display: "flex",
                 alignItems: "center",
@@ -376,7 +378,7 @@ export default function MonthWeather({ weatherInfo }) {
           </S.Wrap34>
         </S.WeathersWrap>
       ) : (
-        <div style={{ height: "280px" }}>Loading...</div>
+        <S.LoadingWrap>Loading...</S.LoadingWrap>
       )}
     </S.Wrap>
   );
@@ -468,4 +470,6 @@ export default function MonthWeather({ weatherInfo }) {
 // 1. 테두리 및 스타일 완
 // 2. 최적화 - 데이터 다 불러올 때 까지의 로딩 페이지 생성, 컴포넌트 최적화 아직 안됨
 //
-//
+// 해야할 것:
+// 1. 헤더 추가를 하고 다크모드 추가
+// 2. 푸터 추가를 하고 사용한 기술 기재

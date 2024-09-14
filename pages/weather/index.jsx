@@ -4,6 +4,7 @@ import {
   getDate,
   getDateAPI,
   getFullDate,
+  getOneHourAgo,
 } from "@/src/commons/libraries/utils";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -17,7 +18,7 @@ import { isWeatherData } from "@/src/commons/stores";
 import { dnYnLat, dnYnLon } from "@/src/commons/libraries/dnYn";
 import SunriseSunsetTimes from "@/src/components/commons/SunRiseAndSunSet/SunRiseAndSunSet";
 import MonthWeather from "@/src/components/commons/MonthWeather/MonthWeather";
-import LoadingPage from "@/src/components/commons/Loading/loading";
+// import LoadingPage from "@/src/components/commons/Loading/loading";
 import AirQuality from "@/src/components/commons/AirQuality/AirQuality";
 import { locationCode } from "@/src/commons/libraries/data/locationCodes";
 
@@ -26,6 +27,7 @@ export default function ProfilePage() {
   const [loading, setLoading] = useState(true);
   const [lat, setLat] = useState("");
   const [lon, setLon] = useState("");
+  const [nowWeather, setNowWeather] = useState({});
   const date = new Date();
   const hour = date.getHours();
   const HourStr = String(hour).padStart(2, "0") + "00"; // 예: "1800"
@@ -49,7 +51,10 @@ export default function ProfilePage() {
     const { latitude, longitude } = position.coords;
     // 위도, 경도 값을 받아 격자 위치 반환
     const gridCoords = dfs_xy_conv("toXY", latitude, longitude);
+    // 단기예보 - 1시간 간격으로 3일 ~ 5일치 데이터 보여줌
     const weatherData = {};
+    // 초단기예보 - 1시간 간격으로 하루치 데이터 보여줌 - 좀더 정확한 날씨 데이터
+    const nowWeather = {};
     setLat(latitude);
     setLon(longitude);
 
@@ -66,7 +71,31 @@ export default function ProfilePage() {
         locCity.includes(el.city.trim())
       );
 
-      // 주간 날씨 데이터
+      // 현재 날씨 데이터 - 초단기예보
+      const nowWeatherResponse = await axios.get(
+        `http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst?serviceKey=${apiKey}&numOfRows=70&pageNo=1&base_date=${getDate(date)}&base_time=${getOneHourAgo()}&nx=${gridCoords.x}&ny=${gridCoords.y}&dataType=JSON`
+      );
+      const nowWeatherItems = nowWeatherResponse.data.response.body.items.item;
+      nowWeatherItems.forEach((item) => {
+        const nowTime = parseInt(item.fcstTime);
+        const nowCategory = item.category;
+        const nowValue = item.fcstValue;
+
+        if (nowTime === HourInt) {
+          nowWeather[nowCategory] = nowValue;
+        }
+      });
+
+      // 시간, 3~5일 날씨 데이터 - 단기예보
+      const weatherResponse = await axios.get(
+        `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=${apiKey}&base_date=${getDateAPI(
+          date
+        )}&base_time=${getClosestHour(hour)}&nx=${gridCoords.x}&ny=${
+          gridCoords.y
+        }&dataType=JSON&numOfRows=700`
+      );
+
+      // 주간 날씨 데이터 - 중기예보
       const daysWeatherResponse = await axios.get(
         `http://apis.data.go.kr/1360000/MidFcstInfoService/getMidLandFcst?serviceKey=${apiKey}&numOfRows=10&pageNo=1&regId=${CityCode.code}&tmFc=${getFullDate()}&dataType=JSON`
       );
@@ -74,15 +103,6 @@ export default function ProfilePage() {
       // 일출, 일몰 데이터
       const result = await axios.get(
         `http://apis.data.go.kr/B090041/openapi/service/RiseSetInfoService/getLCRiseSetInfo?longitude=${dnYnLon(longitude)}&latitude=${dnYnLat(latitude)}&locdate=${getDate(date)}&dnYn=N&ServiceKey=${apiKey}`
-      );
-
-      // 시간 날씨 데이터
-      const weatherResponse = await axios.get(
-        `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=${apiKey}&base_date=${getDateAPI(
-          date
-        )}&base_time=${getClosestHour(hour)}&nx=${gridCoords.x}&ny=${
-          gridCoords.y
-        }&dataType=JSON&numOfRows=1500`
       );
 
       const items = weatherResponse.data.response.body.items.item;
@@ -103,8 +123,9 @@ export default function ProfilePage() {
         // 데이터 저장
         weatherData[dayKey][timeKey][category] = value;
       });
-      console.log("weatherData: ", weatherData);
+      // console.log("weatherData: ", weatherData);
 
+      // 시간별 날씨, 요일별 날씨, 일출일몰, 미세먼지
       if ((result && locationResponse && weatherData, daysWeatherResponse)) {
         setWeatherInfo({
           sunTime: result.data.response.body.items.item,
@@ -112,6 +133,11 @@ export default function ProfilePage() {
           weather: weatherData,
           daysWeather: daysWeatherResponse.data.response.body.items.item[0],
         });
+
+        // 현재 시간 날씨
+        if (nowWeather) {
+          setNowWeather(nowWeather);
+        }
 
         setLoading(false);
       }
@@ -129,26 +155,44 @@ export default function ProfilePage() {
     fetchWeatherData();
   }, []);
 
-  if (loading) {
-    return <LoadingPage />;
-  }
+  // const [isScrolled, setIsScrolled] = useState(false);
+
+  // // 스크롤 이벤트 핸들러
+  // const handleScroll = () => {
+  //   if (window.scrollY > 60) {
+  //     setIsScrolled(true);
+  //   } else {
+  //     setIsScrolled(false);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   // 스크롤 이벤트 리스너 추가
+  //   window.addEventListener("scroll", handleScroll);
+
+  //   // 컴포넌트 언마운트 시 이벤트 리스너 제거
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll);
+  //   };
+  // }, []);
+
+  // if (loading) {
+  //   return <LoadingPage />;
+  // }
 
   const weatherDays = weatherInfo.weather;
-  // 현재시간 날씨 정보
+  // 현재시간 날씨 정보 - 강수확률 - (초단기예보<nowWeather>에서는 강수확률의 데이터가 없어 단기예보에서 가져옴)
   const weatherDetails = weatherInfo.weather?.[getDate(date)]?.[HourStr];
 
+  // 초단기예보 데이터 사용
   const CloudCod =
-    weatherDetails?.SKY === "1"
+    nowWeather?.SKY === "1"
       ? "맑음"
-      : weatherDetails?.SKY === "3"
+      : nowWeather?.SKY === "3"
         ? "구름많음"
-        : "흐림";
-
-  console.log("weatherDetails: ", weatherDetails);
-  console.log("weatherInfo: ", weatherInfo);
-  console.log("weatherSunTime: ", weatherInfo.sunTime.sunrise);
-  console.log("getDate(date): ", getDate(date));
-  console.log("getDateAPI(date): ", getDateAPI(date));
+        : nowWeather?.SKY === "4"
+          ? "흐림"
+          : "--";
 
   return (
     <S.Wrap>
@@ -156,17 +200,17 @@ export default function ProfilePage() {
       <S.WeatherDetailsWrap>
         <S.WeatherWrap>
           <S.InfoWrap>
-            <S.Temp>{weatherDetails?.TMP ?? "NaN"}°</S.Temp>
+            <S.Temp>{nowWeather.T1H ?? "00"}°</S.Temp>
             <S.Cloud>{CloudCod}</S.Cloud>
             <S.LocWrap>
-              <S.Loc>{weatherInfo.location.quarter}</S.Loc>
+              <S.Loc>{weatherInfo.location.quarter ?? "Loading.."}</S.Loc>
               <S.LocImg src="/images/location.png" />
             </S.LocWrap>
           </S.InfoWrap>
           <S.CloudImg
             src={Cloud(
-              weatherDetails?.PTY,
-              weatherDetails?.SKY,
+              nowWeather?.PTY,
+              nowWeather?.SKY,
               HourInt,
               sunrise,
               sunset
@@ -182,19 +226,19 @@ export default function ProfilePage() {
                 {/* 습도 */}
                 <S.WeatherInfoImg src="/images/humidity_sky.png" />
                 <S.WeatherInfoText>습도</S.WeatherInfoText>
-                {weatherDetails?.REH}%
+                {nowWeather?.REH ?? 0}%
               </S.WeatherInfo>{" "}
               <S.WeatherInfo>
                 {/* 강수확률 */}
                 <S.WeatherInfoImg src={Humidity(weatherDetails?.POP)} />
                 <S.WeatherInfoText>강수확률</S.WeatherInfoText>
-                {weatherDetails?.POP}%
+                {weatherDetails?.POP ?? 0}%
               </S.WeatherInfo>{" "}
               <S.WeatherInfo>
                 {/* 풍속 */}
                 <S.WeatherInfoImg src={Wind(weatherDetails?.WSD)} />
                 <S.WeatherInfoText>바람</S.WeatherInfoText>
-                {weatherDetails?.WSD}m/s
+                {nowWeather?.WSD ?? 0}m/s
               </S.WeatherInfo>{" "}
             </S.WeatherInfoWrap>
             {/* 시간별 날씨 */}
@@ -205,13 +249,7 @@ export default function ProfilePage() {
             />
           </S.CurrentWeatherWrap>
           {/* 일주일 날씨 */}
-          {/* <div
-            style={{ width: "50%", height: "30px", border: "3px solid blue" }}
-          > */}
           <MonthWeather weatherInfo={weatherInfo} />
-          {/* </div> */}
-          {/* <S.DailyWeatherWrap> */}
-          {/* </S.DailyWeatherWrap> */}
         </S.WeatherSummaryWrap>
         <S.AirAndSunInfoWrap>
           {/* 일출 / 일몰 */}
