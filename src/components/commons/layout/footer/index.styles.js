@@ -54,11 +54,13 @@ export const API = styled.p`
   color: #545e6f;
 `;
 
-export const Link = styled.div`
+export const LinkWrap = styled.div`
   width: 100%;
   display: flex;
   justify-content: end;
 `;
+
+export const Link = styled.a``;
 
 export const LinkImg = styled.img`
   width: 30px;

@@ -21,11 +21,14 @@ export default function Footer() {
             에어코리아 대기오염정보
           </S.API>
         </S.OpenAPI>
-        <S.Link>
-          <a href={"https://github.com/Shayrol/weather_test"} target="_blank">
+        <S.LinkWrap>
+          <S.Link
+            href={"https://github.com/Shayrol/weather_test"}
+            target="_blank"
+          >
             <S.LinkImg src="/images/github.png" />
-          </a>
-        </S.Link>
+          </S.Link>
+        </S.LinkWrap>
       </S.FooterWrap>
     </S.Wrap>
   );
