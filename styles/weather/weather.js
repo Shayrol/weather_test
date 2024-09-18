@@ -1,5 +1,20 @@
 import styled from "@emotion/styled";
 
+export const lightTheme = {
+  backgroundColor: "#FFFFFF",
+  textColor: "black",
+};
+
+export const darkTheme = {
+  backgroundColor: "#212426",
+  textColor: "#ccc",
+};
+
+export const theme = {
+  lightTheme,
+  darkTheme,
+};
+
 // 페이지 전체 공간
 export const Wrap = styled.div`
   /* background-color: skyblue; */
@@ -10,9 +25,9 @@ export const Wrap = styled.div`
   // 눈누 - 학교안심 둥근미소 폰트
   font-family: "HakgyoansimDunggeunmisoTTF-B";
 
-  background-color: ${({ isScrolled }) =>
+  /* background-color: ${({ isScrolled }) =>
     isScrolled ? "skyblue" : "transparent"};
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease; */
 `;
 
 // 메뉴 탭 - (추가할지 고민중)
@@ -87,19 +102,21 @@ export const LocImg = styled.img`
 
 // 현재 날씨정보 + 일주일 날씨 정보 전체 공간 - (습도, 강수확률, 바람) + 시간별 날씨 + 요일별 날씨
 export const WeatherSummaryWrap = styled.div`
+  /* border: 3px solid red; */
   display: flex;
   justify-content: space-around;
-  width: 100%;
-  max-width: 820px;
-  min-width: 650px;
+  /* width: 100%; */
+  width: 820px;
+  /* min-width: 650px; */
   gap: 10px;
   margin-top: 30px;
 `;
 
 // 현재, 시간별 날씨정보 전체공간 (습도, 강수확률 바람) + 시간별 날씨
 export const CurrentWeatherWrap = styled.div`
+  /* border: 3px solid red; */
   width: 50%;
-  min-width: 320px;
+  /* min-width: 320px; */
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -137,6 +154,7 @@ export const WeatherInfoText = styled.p`
 
 // 일몰, 일출 / 미세먼지 전체공간
 export const AirAndSunInfoWrap = styled.div`
+  /* border: 3px solid red; */
   display: flex;
   justify-content: space-between;
   margin-top: 10px;
@@ -151,7 +169,7 @@ export const SunInfoWrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50%;
+  width: 420px;
   height: 150px;
 `;
 
@@ -162,6 +180,13 @@ export const AirInfoWrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50%;
+  width: 410px;
   height: 150px;
+`;
+
+// 요일 날씨 공간
+export const MonthWeatherWrap = styled.div`
+  box-shadow: 0px 0px 5px #444;
+  border-radius: 10px;
+  width: 50%;
 `;

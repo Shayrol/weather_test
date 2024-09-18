@@ -28,6 +28,7 @@ export default function ProfilePage() {
   const [lat, setLat] = useState("");
   const [lon, setLon] = useState("");
   const [nowWeather, setNowWeather] = useState({});
+  const [theme, setTheme] = useState("dark");
   const date = new Date();
   const hour = date.getHours();
   const HourStr = String(hour).padStart(2, "0") + "00"; // 예: "1800"
@@ -155,31 +156,6 @@ export default function ProfilePage() {
     fetchWeatherData();
   }, []);
 
-  // const [isScrolled, setIsScrolled] = useState(false);
-
-  // // 스크롤 이벤트 핸들러
-  // const handleScroll = () => {
-  //   if (window.scrollY > 60) {
-  //     setIsScrolled(true);
-  //   } else {
-  //     setIsScrolled(false);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   // 스크롤 이벤트 리스너 추가
-  //   window.addEventListener("scroll", handleScroll);
-
-  //   // 컴포넌트 언마운트 시 이벤트 리스너 제거
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-  //   };
-  // }, []);
-
-  // if (loading) {
-  //   return <LoadingPage />;
-  // }
-
   const weatherDays = weatherInfo.weather;
   // 현재시간 날씨 정보 - 강수확률 - (초단기예보<nowWeather>에서는 강수확률의 데이터가 없어 단기예보에서 가져옴)
   const weatherDetails = weatherInfo.weather?.[getDate(date)]?.[HourStr];
@@ -236,7 +212,7 @@ export default function ProfilePage() {
               </S.WeatherInfo>{" "}
               <S.WeatherInfo>
                 {/* 풍속 */}
-                <S.WeatherInfoImg src={Wind(weatherDetails?.WSD)} />
+                <S.WeatherInfoImg src={Wind(nowWeather?.WSD)} />
                 <S.WeatherInfoText>바람</S.WeatherInfoText>
                 {nowWeather?.WSD ?? 0}m/s
               </S.WeatherInfo>{" "}
@@ -249,7 +225,9 @@ export default function ProfilePage() {
             />
           </S.CurrentWeatherWrap>
           {/* 일주일 날씨 */}
-          <MonthWeather weatherInfo={weatherInfo} />
+          <S.MonthWeatherWrap>
+            <MonthWeather weatherInfo={weatherInfo} />
+          </S.MonthWeatherWrap>
         </S.WeatherSummaryWrap>
         <S.AirAndSunInfoWrap>
           {/* 일출 / 일몰 */}

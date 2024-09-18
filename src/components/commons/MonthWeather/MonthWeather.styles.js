@@ -2,11 +2,17 @@ import styled from "@emotion/styled";
 
 // 일주일 날씨 테두리 영역
 export const Wrap = styled.div`
-  box-shadow: 0px 0px 5px #444;
+  /* box-shadow: 0px 0px 5px #444;
   border-radius: 10px;
   display: flex;
   width: 100%;
-  padding: 10px;
+  height: 310px;
+  padding: 10px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 310px;
 `;
 
 // 일주일 날씨 전체공간
@@ -14,6 +20,7 @@ export const WeathersWrap = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
+  height: 100%;
 `;
 
 // 일주일 전체공간

@@ -79,7 +79,7 @@ const WindArray = [
 ];
 
 export const Wind = (item) => {
-  const itemInt = Math.floor(item);
+  const itemInt = Math.trunc(item);
   const result = WindArray.find((el) => el.code === itemInt);
   return result ? result.img : "/images/Cloud_SVG/fill/wind/wind-alert.svg";
 };
