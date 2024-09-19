@@ -1,42 +1,29 @@
-// ssr 방식으로 서버에서 데이터를 가져오려 했지만 현재 위치르 가져오는
-// navigator.geolocation.getCurrentPosition이 브라우저에서만 동작을 해 서버에서
-// 데이터를 가져오지 못한다.
-
-import { getDate } from "@/src/commons/libraries/utils";
-import axios from "axios";
-
-export default function TestPage({ nowWeather }) {
-  console.log("nowWeather: ", nowWeather);
+export default function MyProfilePage() {
   return (
     <div>
-      <div>HI</div>
+      <h2>S3 정적 페이지 입니다.</h2>
+      <p>현재 페이지는 https로 SSL/TLS 인증서를 통해 보안을 했습니다.</p>
+      <ul>
+        <li>도매인 chan-profile.shop을 등록을 해주고</li>
+        <li>ACM에서 SSL/TLS 인증서 생성을 해준다.</li>
+        <li>
+          CloudFront 생성은 원본 주소인 S3 입력을 해주고 ACM 인증된 인증서를
+          포함해서 생성을 한다.
+        </li>
+        <li>
+          그럼 CloudFront 주소가 생성이 되는데 접속을 하면 https로 S3 배포된
+          페이지로 이동이 된다.
+        </li>
+        <li>
+          다시 도메인으로 와서 A 레코드에 CDN(CloudFront) 주소로 설정하면
+          https://chan-profile.shop/ 로 접속이 된다. 기존 http로만 접속이
+          가능했음
+        </li>
+      </ul>
+      <p>
+        날씨 웹은 ec2를 통해 배포 예정이며 /weather를 통해 접속을 할 수
+        있습니다.
+      </p>
     </div>
   );
 }
-
-export const getServerSideProps = async () => {
-  const date = new Date();
-  const hour = date.getHours();
-  const HourStr = String(hour).padStart(2, "0") + "00";
-  const apiKey =
-    "JTN8hhe7FF97AD0ZKTJRSOf7LtDqtJu%2BJYNUnjwm6heZNq8rSzNj1e2MQDRIa%2BhRRSitVDz5J0NERgwhDy33Ww%3D%3D";
-  let nowWeather = {};
-  try {
-    const nowWeatherResponse = await axios.get(
-      `http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=${apiKey}&numOfRows=10&pageNo=1&base_date=${getDate(
-        date
-      )}&base_time=${HourStr}&nx=55&ny=126&dataType=JSON`
-    );
-    nowWeatherResponse.data.response.body.items.item.forEach((el) => {
-      nowWeather[el.category] = el.obsrValue;
-    });
-  } catch (error) {
-    console.log("Error fetching data: ", error);
-  }
-
-  return {
-    props: {
-      nowWeather,
-    },
-  };
-};
