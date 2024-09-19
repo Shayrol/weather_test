@@ -1,3 +1,5 @@
+// S3 정적 페이지 (임시)
+
 export default function MyProfilePage() {
   return (
     <div>
