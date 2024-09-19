@@ -1,4 +1,7 @@
-// S3 정적 페이지 - (임시)
+// S3 정적 페이지 (임시)
+// 2024.09.19.목
+// ACM, CloudFront 생성 후 DNS A레코드 주소 S3에서 CloudFront 변경으로
+// https로 접속이 가능해짐
 
 export default function MyProfilePage() {
   return (
