@@ -11,7 +11,7 @@ export default function AirQuality() {
 
   const fetchAirQuality = async () => {
     const result = await axios.get(
-      `http://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?sidoName=인천&pageNo=1&numOfRows=100&returnType=json&serviceKey=${apiKey}&ver=1.5`
+      `https://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getCtprvnRltmMesureDnsty?sidoName=인천&pageNo=1&numOfRows=100&returnType=json&serviceKey=${apiKey}&ver=1.5`
     );
 
     if (result) {
