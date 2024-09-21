@@ -16,10 +16,10 @@ const nextConfig = {
   // 안에 있는 폴더만 정적페이지 build시 out폴더에 만들어 진다.
   // getServerSideProps 함수가 있는 페이지는 제외하고 넣으면 된다.
   // 상위 페이지, 404 페이지만 정적 페이지 build 시 out 폴더에 생성이 된다.
-  exportPathMap: () => ({
-    "/": { page: "/" },
-    "/404": { page: "/404" },
-  }),
+  // exportPathMap: () => ({
+  //   "/": { page: "/" },
+  //   "/404": { page: "/404" },
+  // }),
 };
 
 export default nextConfig;
