@@ -9,7 +9,7 @@ const nextConfig = {
   reactStrictMode: false,
 
   // 정적 페이지 build 하기 next14 버전
-  output: "export",
+  // output: "export",
   // build시 _next와 .next 폴더에 생성되는 ID 값을 고정한다.
   // S3, LB 배포시 _next ID가 달라 에러 생김
   generateBuildId: () => "codecamp-deploy-project",
