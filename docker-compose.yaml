@@ -1,0 +1,18 @@
+# version: "3.7"
+
+# 컴퓨터들
+services:
+  # 첫 번째 컴퓨터 이름
+  my-fronend:
+    # build로 최적화 - 이미지 작업
+    build:
+      # Dockerfile 위치
+      context: .
+      # 생성한 도커 파일 이름 - Dockerfile
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+
+  # 두 번째 컴퓨터 이름
+  # 세 번째 컴퓨터 이름
+# 이렇게 컴퓨터들을 등록을 하면 그룹핑 해서 한번에 실행 / 종료를 할 수 있다.

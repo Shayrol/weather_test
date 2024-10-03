@@ -1,0 +1,42 @@
+# 가상의 컴퓨터 만드는 설명서
+
+# 1. 운영체제 및 프로그램 직접 하나하나 설치
+# FROM ubuntu:22.04
+
+# RUN sudo apt install -y nodejs
+# RUN sudo npm install -g yarn
+
+# 2. 이미 리눅스, node, npm, yarn까지 모두 깔려있는 컴퓨터 다운로드
+# node 14버전은 종료함 18, 20, 22 버전 지원중
+FROM node:18
+
+# RUN mkbir myfolder
+
+# COPY를 할 때 myfolder가 없으면 자동으로 생성을 해준다.
+# 즉 mkbir로 폴더를 생성 할 필요가 없다.
+COPY . /myfolder/
+
+# cd를 사용을 하거나 WORKDIR로 해당 폴더에 커서를 깜박일 수 있다.
+WORKDIR /myfolder/
+# RUN cd myfolder
+
+RUN yarn install
+RUN yarn build
+
+# .dockerignore로 버전이 다른 node_modules / .next등으로 서로다른
+# 버전이 설치가 되어 안되는 곳도 발생할 수 있다.
+# 그래서 걸러내고 다시 install, build를 하고 start를 해준다.
+# 똑같은 버전으로 실행하기 위해 필요한 작업
+
+# 매번 실행 마다 install, build 작업을 하고 start는 비효율 적이다.
+
+# 셋팅과 실행을 구분하기 위해 RUN 이 아닌 CMD yarn start로 한다.
+CMD yarn start
+
+
+
+# 파일을 수정을 했으면 다시 docker-compose build 를 해줘야 하는데 
+# 다시 카피를 하고 install를 하는 과정이 비효율 적이다.
+
+# 그래서 이 파일이 아닌 Dockerfile 참고
+# install이 오래 걸려 순서를 변경을 하면 된다.

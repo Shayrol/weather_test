@@ -2,12 +2,12 @@ import { PM10, PM25 } from "@/src/commons/libraries/pm10pm25";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import * as S from "./AirQuality.styles";
+import config from "@/apikey";
 
 export default function AirQuality() {
   const [airData, setAirData] = useState("");
 
-  const apiKey =
-    "JTN8hhe7FF97AD0ZKTJRSOf7LtDqtJu%2BJYNUnjwm6heZNq8rSzNj1e2MQDRIa%2BhRRSitVDz5J0NERgwhDy33Ww%3D%3D";
+  const apiKey = config.WEATHER_API_KEY;
 
   const fetchAirQuality = async () => {
     const result = await axios.get(

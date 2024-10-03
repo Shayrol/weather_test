@@ -1,34 +1,99 @@
-// S3 정적 페이지 (임시)
-// 2024.09.19.목
-// ACM, CloudFront 생성 후 DNS A레코드 주소 S3에서 CloudFront 변경으로
-// https로 접속이 가능해짐
+import { useEffect, useState } from "react";
+import { throttle } from "lodash";
+import * as S from "@/styles/MyProfilePage.styles";
+import Typing from "@/src/components/units/Typing - Effect/Typing";
+import ScrollDown from "@/src/components/commons/ScrollDown/MouseScrollDownCSS";
+import ScrollToTopButton from "@/src/components/commons/ScrollToTopButton/ScrollToTopButton";
+import Head from "next/head";
+import SkillsAndProjects from "@/src/components/units/Skills/Skills";
+import Projects from "@/src/components/units/Projects-/Projects";
+import About from "@/src/components/units/About/About";
 
-export default function MyProfilePage() {
+export default function MainProfile() {
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  const handleScroll = throttle(() => {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const scrollHeight =
+      document.documentElement.scrollHeight -
+      document.documentElement.clientHeight;
+    const progress = (scrollTop / scrollHeight) * 100;
+    setScrollProgress(progress);
+  }, 200); // 100ms마다 실행
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const scrollToSection = (sectionId) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
-    <div>
-      <h2>S3 정적 페이지 입니다.</h2>
-      <p>현재 페이지는 https로 SSL/TLS 인증서를 통해 보안을 했습니다.</p>
-      <ul>
-        <li>도매인 chan-profile.shop을 등록을 해주고</li>
-        <li>ACM에서 SSL/TLS 인증서 생성을 해준다.</li>
-        <li>
-          CloudFront 생성은 원본 주소인 S3 입력을 해주고 ACM 인증된 인증서를
-          포함해서 생성을 한다.
-        </li>
-        <li>
-          그럼 CloudFront 주소가 생성이 되는데 접속을 하면 https로 S3 배포된
-          페이지로 이동이 된다.
-        </li>
-        <li>
-          다시 도메인으로 와서 A 레코드에 CDN(CloudFront) 주소로 설정하면
-          https://chan-profile.shop/ 로 접속이 된다. 기존 http로만 접속이
-          가능했음
-        </li>
-      </ul>
-      <p>
-        날씨 웹은 ec2를 통해 배포 예정이며 /weather를 통해 접속을 할 수
-        있습니다.
-      </p>
-    </div>
+    <>
+      <Head>
+        <title>Portfolio</title>
+      </Head>
+
+      <S.Wrap>
+        <S.Smooth>
+          <S.Header>
+            <div style={{ minWidth: "100px" }}></div>
+            <S.HeaderUl>
+              <S.HeaderLi>
+                <S.HeaderA onClick={() => scrollToSection("home")}>
+                  Home
+                </S.HeaderA>
+              </S.HeaderLi>
+              <S.HeaderLi>
+                <S.HeaderA onClick={() => scrollToSection("skill")}>
+                  Skill
+                </S.HeaderA>
+              </S.HeaderLi>
+              <S.HeaderLi>
+                <S.HeaderA onClick={() => scrollToSection("project")}>
+                  Project
+                </S.HeaderA>
+              </S.HeaderLi>
+              <S.HeaderLi>
+                <S.HeaderA onClick={() => scrollToSection("about")}>
+                  About
+                </S.HeaderA>
+              </S.HeaderLi>
+            </S.HeaderUl>
+            <div style={{ minWidth: "100px" }}></div>
+          </S.Header>
+        </S.Smooth>
+
+        <S.Section id="home">
+          <Typing />
+        </S.Section>
+        <S.Section id="skill">
+          <SkillsAndProjects />
+        </S.Section>
+        <S.Section id="project">
+          <Projects />
+        </S.Section>
+        <S.Section id="about">
+          <About />
+        </S.Section>
+        <S.ScrollWrap scrollProgress={scrollProgress}>
+          <ScrollDown />
+        </S.ScrollWrap>
+        <S.ScrollToTopButtonWrap scrollProgress={scrollProgress}>
+          <ScrollToTopButton scrollToSection={scrollToSection} />
+        </S.ScrollToTopButtonWrap>
+        <S.ProgressBarWrap>
+          <S.ProgressBar scrollProgress={scrollProgress} />
+        </S.ProgressBarWrap>
+      </S.Wrap>
+    </>
   );
 }

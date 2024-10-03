@@ -21,6 +21,8 @@ import MonthWeather from "@/src/components/commons/MonthWeather/MonthWeather";
 // import LoadingPage from "@/src/components/commons/Loading/loading";
 import AirQuality from "@/src/components/commons/AirQuality/AirQuality";
 import { locationCode } from "@/src/commons/libraries/data/locationCodes";
+import Head from "next/head";
+import config from "@/apikey";
 
 export default function ProfilePage() {
   const [weatherInfo, setWeatherInfo] = useRecoilState(isWeatherData);
@@ -28,13 +30,13 @@ export default function ProfilePage() {
   const [lat, setLat] = useState("");
   const [lon, setLon] = useState("");
   const [nowWeather, setNowWeather] = useState({});
-  const [theme, setTheme] = useState("dark");
   const date = new Date();
   const hour = date.getHours();
   const HourStr = String(hour).padStart(2, "0") + "00"; // 예: "1800"
   const HourInt = parseInt(String(hour).padStart(2, "0") + "00");
-  const sunrise = weatherInfo.sunTime.sunrise;
-  const sunset = weatherInfo.sunTime.sunset;
+  const sunrise = weatherInfo?.sunTime?.sunrise;
+  const sunset = weatherInfo?.sunTime?.sunset;
+  const apiKey = config.WEATHER_API_KEY;
 
   const fetchWeatherData = async () => {
     if (!navigator.geolocation) {
@@ -58,9 +60,6 @@ export default function ProfilePage() {
     const nowWeather = {};
     setLat(latitude);
     setLon(longitude);
-
-    const apiKey =
-      "JTN8hhe7FF97AD0ZKTJRSOf7LtDqtJu%2BJYNUnjwm6heZNq8rSzNj1e2MQDRIa%2BhRRSitVDz5J0NERgwhDy33Ww%3D%3D";
 
     try {
       // 위치
@@ -172,6 +171,9 @@ export default function ProfilePage() {
 
   return (
     <S.Wrap>
+      <Head>
+        <title>날씨 웹</title>
+      </Head>
       {/* <S.MenuTapWrap>메뉴 탭</S.MenuTapWrap> */}
       <S.WeatherDetailsWrap>
         <S.WeatherWrap>
@@ -273,3 +275,104 @@ export default function ProfilePage() {
 //    - 중기예보도 딱히 상관 없어보임
 // 2. 테두리 및 스타일 완성하기
 // 3. 재난문자 현재 날씨 오른쪽에 띄우기
+
+// Promise.all을 사용해 API 요청 동시에 하기
+// const getLocation = async (latitude, longitude) => {
+//   const response = await axios.get(
+//     `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`
+//   );
+//   return response.data.address;
+// };
+
+// const getCurrentWeather = async (date, hour, gridCoords) => {
+//   const response = await axios.get(
+//     `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst?serviceKey=${apiKey}&numOfRows=70&pageNo=1&base_date=${getDate(date)}&base_time=${getOneHourAgo()}&nx=${gridCoords.x}&ny=${gridCoords.y}&dataType=JSON`
+//   );
+//   return response.data.response.body.items.item;
+// };
+
+// const getHourlyWeather = async (date, hour, gridCoords) => {
+//   const response = await axios.get(
+//     `https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=${apiKey}&base_date=${getDateAPI(date)}&base_time=${getClosestHour(hour)}&nx=${gridCoords.x}&ny=${gridCoords.y}&dataType=JSON&numOfRows=700`
+//   );
+//   return response.data.response.body.items.item;
+// };
+
+// const getWeeklyWeather = async (cityCode) => {
+//   const response = await axios.get(
+//     `https://apis.data.go.kr/1360000/MidFcstInfoService/getMidLandFcst?serviceKey=${apiKey}&numOfRows=10&pageNo=1&regId=${cityCode}&tmFc=${getFullDate()}&dataType=JSON`
+//   );
+//   return response.data.response.body.items.item[0];
+// };
+
+// const getSunriseSunset = async (longitude, latitude, date) => {
+//   const response = await axios.get(
+//     `https://apis.data.go.kr/B090041/openapi/service/RiseSetInfoService/getLCRiseSetInfo?longitude=${dnYnLon(longitude)}&latitude=${dnYnLat(latitude)}&locdate=${getDate(date)}&dnYn=N&ServiceKey=${apiKey}`
+//   );
+//   return response.data.response.body.items.item;
+// };
+
+// // 메인 함수
+// const fetchWeatherData = async () => {
+//   if (!navigator.geolocation) {
+//     setWeatherInfo((prev) => ({
+//       ...prev,
+//       error: "Geolocation을 지원하지 않는 브라우저입니다.",
+//     }));
+//     return;
+//   }
+
+//   try {
+//     const position = await new Promise((resolve, reject) => {
+//       navigator.geolocation.getCurrentPosition(resolve, reject);
+//     });
+
+//     const { latitude, longitude } = position.coords;
+//     const gridCoords = dfs_xy_conv("toXY", latitude, longitude);
+
+//     setLat(latitude);
+//     setLon(longitude);
+
+//     // 모든 API 요청을 동시에 실행
+//     const [location, currentWeather, hourlyWeather, weeklyWeather, sunriseSunset] = await Promise.all([
+//       getLocation(latitude, longitude),
+//       getCurrentWeather(date, hour, gridCoords),
+//       getHourlyWeather(date, hour, gridCoords),
+//       getWeeklyWeather(getCityCode(location)),
+//       getSunriseSunset(longitude, latitude, date)
+//     ]);
+
+//     // 데이터 처리 및 상태 업데이트
+//     const processedCurrentWeather = processCurrentWeather(currentWeather);
+//     const processedHourlyWeather = processHourlyWeather(hourlyWeather);
+
+//     setWeatherInfo({
+//       location,
+//       currentWeather: processedCurrentWeather,
+//       hourlyWeather: processedHourlyWeather,
+//       weeklyWeather,
+//       sunriseSunset
+//     });
+
+//     setLoading(false);
+//   } catch (error) {
+//     console.error("Error fetching data: ", error);
+//     setWeatherInfo((prev) => ({
+//       ...prev,
+//       error: "데이터를 가져오는 데 실패했습니다.",
+//     }));
+//     setLoading(false);
+//   }
+// };
+
+// 이는 예시 코드이며 location의 값이 있는 상태에서 나머지 API를 실행을 해야한다.
+// 추가로 수정을 통해 빠른 API 응답을 받으려면 zen-observable 또는 Promise.all 사용을 한다.
+// zen-observable는 비동기 처리가 들어오는 대로 바로바로 처리를 한다.
+// Promise.all은 비동기를 동시에 실행을 해 모두 끝나면 한 번에 값을 반환한다.
+// async / await은 첫 번째 비동기가 끝나고 다음 비동기로 넘어가 값을 얻는다.
+
+// 속도면에서 zen-observable이 빨라 location의 도시의 위치를 받아 중기예보만 따로 처리를 하고
+// 나머지 API 요청은 zen-observable로 하고 setState에 저장을 한다.
+
+// 여기서 state의 리렌더링을 줄이고 싶다면 Promise.all을 사용하면 될 것 같다.
+// 한 번에 결과값을 state 객체에 저장하기..
