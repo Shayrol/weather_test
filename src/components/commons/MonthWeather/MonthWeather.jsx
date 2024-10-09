@@ -4,9 +4,9 @@ import _ from "lodash";
 import { Cloud2, Cloud3 } from "@/src/commons/libraries/cloud";
 import * as S from "./MonthWeather.styles";
 
-export default function MonthWeather({ weatherInfo }) {
+export default function MonthWeather({ weatherState, daysWeatherState }) {
   const dates = [0, 1, 2]; // 0: 오늘, 1: 내일, 2: 모레
-  const data = weatherInfo.daysWeather; // 4일 데이터
+  const data = daysWeatherState; // 4일 데이터
 
   const dayCode = [
     { day: "월요일", code: 1 },
@@ -104,7 +104,7 @@ export default function MonthWeather({ weatherInfo }) {
       <S.HumidityWrap>
         {dates.map((offset) => {
           const weatherDataAM =
-            weatherInfo.weather[getDateWithOffset(offset)]?.["0000"];
+            weatherState[getDateWithOffset(offset)]?.["0000"];
           return (
             <div
               key={offset}
@@ -140,7 +140,7 @@ export default function MonthWeather({ weatherInfo }) {
       <S.HumidityWrap>
         {dates.map((offset) => {
           const weatherDataPM =
-            weatherInfo.weather[getDateWithOffset(offset)]?.["1200"];
+            weatherState[getDateWithOffset(offset)]?.["1200"];
           // console.log("weatherDataPM: ", weatherDataPM);
           // console.log("weatherDataPM: ", offset);
           return (
@@ -178,7 +178,7 @@ export default function MonthWeather({ weatherInfo }) {
       <S.CloudsWrap>
         {dates.map((offset) => {
           const weatherDataAM =
-            weatherInfo.weather[getDateWithOffset(offset)]?.["0000"];
+            weatherState[getDateWithOffset(offset)]?.["0000"];
 
           return (
             <div
@@ -219,7 +219,7 @@ export default function MonthWeather({ weatherInfo }) {
       <S.CloudsWrap>
         {dates.map((offset) => {
           const weatherDataPM =
-            weatherInfo.weather[getDateWithOffset(offset)]?.["1200"];
+            weatherState[getDateWithOffset(offset)]?.["1200"];
 
           return (
             <div
@@ -330,11 +330,11 @@ export default function MonthWeather({ weatherInfo }) {
     );
   };
 
+  console.log("MonthWeather: ", weatherState);
+
   return (
     <S.Wrap>
-      {weatherInfo.weather[getDateWithOffset(1)] &&
-      pickedDays &&
-      pickedCloudDays ? (
+      {weatherState[getDateWithOffset(1)] && pickedDays && pickedCloudDays ? (
         <S.WeathersWrap>
           {/* 요일 출력 */}
           <S.TodaysWrap>

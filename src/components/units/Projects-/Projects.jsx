@@ -92,7 +92,13 @@ export default function Projects() {
                   있으며, 충전내역, 비밀번호 변경까지 확인해 볼 수 있습니다.
                 </S.Li>
                 <S.Li>
-                  github: <S.Link href="#">중고마켓</S.Link>
+                  github:{" "}
+                  <S.Link
+                    href="https://github.com/Shayrol/market"
+                    target="_blank"
+                  >
+                    중고마켓
+                  </S.Link>
                 </S.Li>
               </S.Ul>
             </S.ProjectInfoWrap>

@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 export const Wrap = styled.footer`
   border-top: 1px solid #dbdbdb;
   min-height: 170px;
-  min-width: 1450px;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,17 +13,18 @@ export const Wrap = styled.footer`
 export const FooterWrap = styled.div`
   width: 100%;
   display: flex;
-  justify-content: space-between;
-  align-items: end;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 10px;
-  position: absolute;
-  bottom: 0px;
+  gap: 10px;
 `;
 
 export const FooterInfoWrap = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const FooterInfoMessage = styled.p`
@@ -39,7 +40,10 @@ export const FooterInfo = styled.p`
 `;
 
 export const OpenAPI = styled.div`
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const TitleAPI = styled.p`
@@ -54,11 +58,7 @@ export const API = styled.p`
   color: #545e6f;
 `;
 
-export const LinkWrap = styled.div`
-  width: 100%;
-  display: flex;
-  justify-content: end;
-`;
+export const LinkWrap = styled.div``;
 
 export const Link = styled.a``;
 

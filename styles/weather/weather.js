@@ -190,3 +190,12 @@ export const MonthWeatherWrap = styled.div`
   border-radius: 10px;
   width: 50%;
 `;
+
+export const TestWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+`;
