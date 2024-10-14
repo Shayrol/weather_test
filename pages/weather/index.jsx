@@ -234,11 +234,13 @@ export default function ProfilePage() {
               </S.WeatherInfo>{" "}
             </S.WeatherInfoWrap>
             {/* 시간별 날씨 */}
-            <HourlyWeather
-              weatherDays={weatherState}
-              sunrise={sunrise}
-              sunset={sunset}
-            />
+            <S.HourlyWeatherWrap>
+              <HourlyWeather
+                weatherDays={weatherState}
+                sunrise={sunrise}
+                sunset={sunset}
+              />
+            </S.HourlyWeatherWrap>
           </S.CurrentWeatherWrap>
           {/* 일주일 날씨 */}
           <S.MonthWeatherWrap>

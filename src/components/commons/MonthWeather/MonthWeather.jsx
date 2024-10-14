@@ -330,8 +330,6 @@ export default function MonthWeather({ weatherState, daysWeatherState }) {
     );
   };
 
-  console.log("MonthWeather: ", weatherState);
-
   return (
     <S.Wrap>
       {weatherState[getDateWithOffset(1)] && pickedDays && pickedCloudDays ? (

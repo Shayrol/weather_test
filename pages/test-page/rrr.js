@@ -31,3 +31,40 @@ const daysWeatherResponse = await axios.get(
 const result = await axios.get(
   `https://apis.data.go.kr/B090041/openapi/service/RiseSetInfoService/getLCRiseSetInfo?longitude=${dnYnLon(longitude)}&latitude=${dnYnLat(latitude)}&locdate=${getDate(date)}&dnYn=N&ServiceKey=${apiKey}`
 );
+
+const items = weatherResponse.data.response.body.items.item;
+items.forEach((item) => {
+  const timeKey = item.fcstTime; // 예: "1800", "1900"
+  const dayKey = item.fcstDate; // 예: "20240903", "20240904"
+  const category = item.category;
+  const value = item.fcstValue;
+
+  // dayKey가 존재하지 않으면 초기화
+  if (!weatherData[dayKey]) {
+    weatherData[dayKey] = {};
+  }
+  // timeKey가 존재하지 않으면 초기화
+  if (!weatherData[dayKey][timeKey]) {
+    weatherData[dayKey][timeKey] = {};
+  }
+  // 데이터 저장
+  weatherData[dayKey][timeKey][category] = value;
+});
+// console.log("weatherData: ", weatherData);
+
+// 시간별 날씨, 요일별 날씨, 일출일몰, 미세먼지
+if ((result && locationResponse && weatherData, daysWeatherResponse)) {
+  setWeatherInfo({
+    sunTime: result.data.response.body.items.item,
+    location: locationResponse.data.address,
+    weather: weatherData,
+    daysWeather: daysWeatherResponse.data.response.body.items.item[0],
+  });
+
+  // 현재 시간 날씨
+  if (nowWeather) {
+    setNowWeather(nowWeather);
+  }
+
+  setLoading(false);
+}

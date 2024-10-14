@@ -2,21 +2,15 @@ import styled from "@emotion/styled";
 
 // 각 시간대 날씨 정보 테두리
 export const HourlyWeatherWrap = styled.div`
-  box-shadow: 0px 0px 5px #444;
-  border-radius: 10px;
-  width: 100%;
-  height: 150px;
   display: flex;
-
-  /* 가로스크롤 */
   overflow-x: auto;
   overflow-y: hidden;
   white-space: nowrap;
 
   ::-webkit-scrollbar {
     display: none;
-    -ms-overflow-style: none; /* IE 및 Edge */
-    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 `;
 
