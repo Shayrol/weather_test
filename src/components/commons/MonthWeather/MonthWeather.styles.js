@@ -4,12 +4,15 @@ import styled from "@emotion/styled";
 export const Wrap = styled.div`
   width: 100%;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 // 일주일 날씨 전체공간
 export const WeathersWrap = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   width: 100%;
   height: 100%;
 
@@ -24,7 +27,6 @@ export const TodaysWrap = styled.div`
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  margin-left: 20px;
 `;
 
 // 월, 화, 수, 목, 금, 토, 일

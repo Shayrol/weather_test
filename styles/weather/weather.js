@@ -97,6 +97,10 @@ export const CurrentWeatherWrap = styled.div`
   @media (min-width: 1025px) {
     width: 405px;
   }
+
+  @media (max-width: 430px) {
+    width: 360px;
+  }
 `;
 
 // 현재 상세 날씨정보 전체공간 - 습도, 강수확률, 바람
@@ -142,6 +146,10 @@ export const AirAndSunInfoWrap = styled.div`
     align-items: center;
     flex-direction: column;
   }
+
+  @media (max-width: 430px) {
+    width: auto;
+  }
 `;
 
 // 일몰, 일출
@@ -153,6 +161,10 @@ export const SunInfoWrap = styled.div`
   align-items: center;
   width: 50%;
   height: 150px;
+
+  @media (max-width: 430px) {
+    width: 360px;
+  }
 `;
 
 // 미세먼지
@@ -164,6 +176,10 @@ export const AirInfoWrap = styled.div`
   align-items: center;
   width: 50%;
   height: 150px;
+
+  @media (max-width: 430px) {
+    width: 360px;
+  }
 `;
 
 // 요일 날씨 공간
@@ -171,6 +187,10 @@ export const MonthWeatherWrap = styled.div`
   box-shadow: 0px 0px 5px #444;
   border-radius: 10px;
   width: 50%;
+
+  @media (max-width: 430px) {
+    width: 360px;
+  }
 `;
 
 // 시간 날씨 공간
