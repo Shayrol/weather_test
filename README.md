@@ -2,11 +2,14 @@
 
 > 이미지
 - **header + body**
-![날씨 웹 01](https://github.com/user-attachments/assets/d0fffeea-a988-45af-b9bb-3d60c085d0f4)
+![날씨 웹(수정) 01](https://github.com/user-attachments/assets/53b2fc16-c1cd-4e43-aafc-fd573f81af3b)
 - **footer**
 ![footer](https://github.com/user-attachments/assets/2a8b5ebf-b8ec-47f3-b2c6-8d4ba119934a)
 - **mobile** <br>
-![모바일 날씨 웹](https://github.com/user-attachments/assets/8e8d8365-f08b-45ae-8e04-4738da4224ed)
+![날씨 웹(수정) 02](https://github.com/user-attachments/assets/099a9c40-3308-401a-9fbd-1ebe39b3286f)
+ <br>
+![2024-10-1816-35-23-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/6861c2e9-0e5c-43ae-ab98-dc6170c6849f)
+
 
 
 > 활용한 Open API
