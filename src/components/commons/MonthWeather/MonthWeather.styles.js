@@ -113,10 +113,10 @@ export const HumidityImg = styled.img`
 `;
 
 // Loading..
-export const LoadingWrap = styled.div`
+export const Loading = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 24px;
+  font-size: 1rem;
 `;

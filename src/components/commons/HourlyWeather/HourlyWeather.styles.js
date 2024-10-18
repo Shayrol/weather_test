@@ -77,3 +77,13 @@ export const PrecipitationProbabilityImg = styled.img`
   width: 14px;
   height: 14px;
 `;
+
+// Loading
+export const Loading = styled.div`
+  width: 100%;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+`;

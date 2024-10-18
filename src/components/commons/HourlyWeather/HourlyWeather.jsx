@@ -62,34 +62,70 @@ export default function HourlyWeather({ weatherDays, sunrise, sunset }) {
 
   const weatherDataList = getSortedWeatherData();
 
+  // return (
+  //   <S.HourlyWeatherWrap ref={wrapRef}>
+  //     {weatherDataList.map((data, index) => (
+  //       <S.HourlyWeatherInfo key={`${data.day}-${data.time}-${index}`}>
+  //         <S.HourWrap>
+  //           <S.DateInfo>{formatDate(data.day)}</S.DateInfo>
+  //           <S.HourInfo>
+  //             {parseInt(data.time) < 1200 ? "오전" : "오후"}{" "}
+  //             {Hours(parseInt(data.time))}시
+  //           </S.HourInfo>
+  //         </S.HourWrap>
+
+  //         <S.CloudImg
+  //           src={Cloud(
+  //             data.PTY,
+  //             data.SKY,
+  //             data.time,
+  //             propsSunrise,
+  //             propsSunset
+  //           )}
+  //         />
+  //         <S.Temperature>{data.TMP}°</S.Temperature>
+  //         <S.PrecipitationProbabilityWrap>
+  //           <S.PrecipitationProbabilityImg src={Humidity(data.POP)} />
+  //           <S.PrecipitationProbability>{data.POP}%</S.PrecipitationProbability>
+  //         </S.PrecipitationProbabilityWrap>
+  //       </S.HourlyWeatherInfo>
+  //     ))}
+  //   </S.HourlyWeatherWrap>
+  // );
   return (
     <S.HourlyWeatherWrap ref={wrapRef}>
-      {weatherDataList.map((data, index) => (
-        <S.HourlyWeatherInfo key={`${data.day}-${data.time}-${index}`}>
-          <S.HourWrap>
-            <S.DateInfo>{formatDate(data.day)}</S.DateInfo>
-            <S.HourInfo>
-              {parseInt(data.time) < 1200 ? "오전" : "오후"}{" "}
-              {Hours(parseInt(data.time))}시
-            </S.HourInfo>
-          </S.HourWrap>
+      {weatherDataList && weatherDataList.length > 0 ? (
+        weatherDataList.map((data, index) => (
+          <S.HourlyWeatherInfo key={`${data.day}-${data.time}-${index}`}>
+            <S.HourWrap>
+              <S.DateInfo>{formatDate(data.day)}</S.DateInfo>
+              <S.HourInfo>
+                {parseInt(data.time) < 1200 ? "오전" : "오후"}{" "}
+                {Hours(parseInt(data.time))}시
+              </S.HourInfo>
+            </S.HourWrap>
 
-          <S.CloudImg
-            src={Cloud(
-              data.PTY,
-              data.SKY,
-              data.time,
-              propsSunrise,
-              propsSunset
-            )}
-          />
-          <S.Temperature>{data.TMP}°</S.Temperature>
-          <S.PrecipitationProbabilityWrap>
-            <S.PrecipitationProbabilityImg src={Humidity(data.POP)} />
-            <S.PrecipitationProbability>{data.POP}%</S.PrecipitationProbability>
-          </S.PrecipitationProbabilityWrap>
-        </S.HourlyWeatherInfo>
-      ))}
+            <S.CloudImg
+              src={Cloud(
+                data.PTY,
+                data.SKY,
+                data.time,
+                propsSunrise,
+                propsSunset
+              )}
+            />
+            <S.Temperature>{data.TMP}°</S.Temperature>
+            <S.PrecipitationProbabilityWrap>
+              <S.PrecipitationProbabilityImg src={Humidity(data.POP)} />
+              <S.PrecipitationProbability>
+                {data.POP}%
+              </S.PrecipitationProbability>
+            </S.PrecipitationProbabilityWrap>
+          </S.HourlyWeatherInfo>
+        ))
+      ) : (
+        <S.Loading>Loading..</S.Loading>
+      )}
     </S.HourlyWeatherWrap>
   );
 }

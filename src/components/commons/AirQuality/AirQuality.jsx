@@ -48,7 +48,3 @@ export default function AirQuality() {
     </S.Wrap>
   );
 }
-
-// 미세먼지 측정 지역에 작전동이 없음
-// 가져와야 할 데이터:
-// 1. 위치 도시,

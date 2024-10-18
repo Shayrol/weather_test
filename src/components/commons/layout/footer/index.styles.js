@@ -66,3 +66,12 @@ export const LinkImg = styled.img`
   width: 30px;
   height: 30px;
 `;
+
+// 줄바꿈
+export const Br = styled.span`
+  display: inline;
+
+  @media (max-width: 400px) {
+    display: block;
+  }
+`;

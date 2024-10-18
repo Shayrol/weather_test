@@ -376,7 +376,7 @@ export default function MonthWeather({ weatherState, daysWeatherState }) {
           </S.Wrap34>
         </S.WeathersWrap>
       ) : (
-        <S.LoadingWrap>Loading...</S.LoadingWrap>
+        <S.Loading>Loading...</S.Loading>
       )}
     </S.Wrap>
   );

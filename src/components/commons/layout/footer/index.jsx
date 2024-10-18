@@ -22,7 +22,9 @@ export default function Footer() {
         <S.FooterInfoWrap>
           <S.FooterInfo>컨택: rus47@naver.com</S.FooterInfo>
           <S.FooterInfo>
-            Copyright 2024 ⓒ Your Name or Company. All rights reserved.
+            Copyright 2024 ⓒ Your Name or Company.
+            <S.Br />
+            All rights reserved.
           </S.FooterInfo>
         </S.FooterInfoWrap>
       </S.FooterWrap>
