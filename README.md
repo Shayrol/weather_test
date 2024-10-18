@@ -7,12 +7,10 @@
 ![footer](https://github.com/user-attachments/assets/2a8b5ebf-b8ec-47f3-b2c6-8d4ba119934a)
 - **mobile** <br>
 ![날씨 웹(수정) 02](https://github.com/user-attachments/assets/099a9c40-3308-401a-9fbd-1ebe39b3286f)
-  
+- **영상** <br>
 ![2024-10-1816-35-23-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/d0dfbce1-093b-4046-8ad3-600244646c8f)
 
-
-
-
+---
 
 > 활용한 Open API
 - **초단기예보:** 현재 날씨 정보
