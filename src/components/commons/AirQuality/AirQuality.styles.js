@@ -15,7 +15,6 @@ export const PMWrapLine = styled.div`
 
 // 일몰 & 일출 공간
 export const PMWrap = styled.div`
-  /* position: relative; */
   display: flex;
   flex-direction: column;
   justify-content: center;

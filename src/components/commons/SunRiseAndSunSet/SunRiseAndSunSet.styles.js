@@ -20,12 +20,11 @@ export const SunTimeWrap = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 50%;
+  width: 100%;
 `;
 
 // 일몰 & 일출 이미지
 export const SunTimeImg = styled.img`
-  width: 150px;
   height: 120px;
 `;
 

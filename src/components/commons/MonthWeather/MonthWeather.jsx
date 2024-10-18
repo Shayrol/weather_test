@@ -124,7 +124,7 @@ export default function MonthWeather({ weatherState, daysWeatherState }) {
                   alt="습도 이미지"
                 />
                 <S.HumidityText>
-                  {weatherDataAM ? weatherDataAM.POP : "-"}% /
+                  {weatherDataAM ? weatherDataAM.POP : "--"}% /
                 </S.HumidityText>
               </S.HumidityInfoWrap>
             </div>
@@ -162,7 +162,7 @@ export default function MonthWeather({ weatherState, daysWeatherState }) {
                   alt="습도 이미지"
                 />
                 <S.HumidityText>
-                  {weatherDataPM ? weatherDataPM.POP : "-"}%
+                  {weatherDataPM ? weatherDataPM.POP : "--"}%
                 </S.HumidityText>
               </S.HumidityInfoWrap>
             </div>

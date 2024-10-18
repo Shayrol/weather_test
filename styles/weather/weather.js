@@ -2,21 +2,23 @@ import styled from "@emotion/styled";
 
 // 페이지 전체 공간
 export const Wrap = styled.div`
+  border: 1px solid red;
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  padding: 0 100px;
+  /* display: flex; */
+  /* justify-content: center; */
+  /* padding: 0 100px; */
   // 눈누 - 학교안심 둥근미소 폰트
   font-family: "HakgyoansimDunggeunmisoTTF-B";
 `;
 
 // 현재 페이지 - 날씨 정보 전체공간
 export const WeatherDetailsWrap = styled.div`
+  border: 1px solid red;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 1200px;
-  padding: 30px;
+  /* width: 1200px; */
+  /* padding: 30px; */
   padding-top: 80px;
 `;
 
@@ -76,38 +78,45 @@ export const LocImg = styled.img`
 // 현재 날씨정보 + 일주일 날씨 정보 전체 공간 - (습도, 강수확률, 바람) + 시간별 날씨 + 요일별 날씨
 export const WeatherSummaryWrap = styled.div`
   display: flex;
-  width: 820px;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
   gap: 10px;
   margin-top: 30px;
+  padding: 0 5px;
 
-  @media (max-width: 1024px) {
+  /* @media (max-width: 1024px) {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-  }
+    } */
 `;
 
 // 현재, 시간별 날씨정보 전체공간 (습도, 강수확률 바람) + 시간별 날씨
 export const CurrentWeatherWrap = styled.div`
   display: flex;
   flex-direction: column;
-  width: 50%;
+  /* width: 100vw; */
+  /* width: 410px; */
   gap: 10px;
 
-  @media (min-width: 1025px) {
+  /* @media (min-width: 1025px) {
     width: 405px;
-  }
+    } */
 
-  @media (max-width: 430px) {
+  /* @media (max-width: 430px) {
     width: 360px;
-  }
+    } */
+  max-width: 410px;
+  width: 100%;
 `;
 
 // 현재 상세 날씨정보 전체공간 - 습도, 강수확률, 바람
 export const WeatherInfoWrap = styled.div`
   display: flex;
+  flex-grow: 1;
   gap: 10px;
-  width: 100%;
+  /* width: 100%; */
 `;
 
 // 현재 상세 날씨정보 - 습도, 강수확률, 바람 정보
@@ -117,6 +126,7 @@ export const WeatherInfo = styled.div`
   width: 100%;
   height: 150px;
   display: flex;
+  /* flex-shrink: 1; */
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -136,20 +146,27 @@ export const WeatherInfoText = styled.p`
 
 // 일몰, 일출 / 미세먼지 전체공간
 export const AirAndSunInfoWrap = styled.div`
-  display: flex;
+  /* display: flex;
   margin-top: 10px;
   width: 820px;
+  gap: 10px; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
   gap: 10px;
+  margin-top: 10px;
+  padding: 0 5px;
 
-  @media (max-width: 1024px) {
+  /* @media (max-width: 1024px) {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-  }
+    } */
 
-  @media (max-width: 430px) {
-    width: auto;
-  }
+  /* @media (max-width: 430px) {
+      width: auto;
+      } */
 `;
 
 // 일몰, 일출
@@ -159,12 +176,13 @@ export const SunInfoWrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50%;
+  /* width: 100%; */
+  width: 410px;
   height: 150px;
-
+  /* 
   @media (max-width: 430px) {
     width: 360px;
-  }
+  } */
 `;
 
 // 미세먼지
@@ -174,28 +192,34 @@ export const AirInfoWrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 50%;
+  /* width: 100%; */
+  width: 410px;
   height: 150px;
 
-  @media (max-width: 430px) {
+  /* @media (max-width: 430px) {
     width: 360px;
-  }
+    } */
 `;
 
 // 요일 날씨 공간
 export const MonthWeatherWrap = styled.div`
+  /* border: 1px solid blue; */
   box-shadow: 0px 0px 5px #444;
   border-radius: 10px;
-  width: 50%;
+  max-width: 410px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  /* width: 410px; */
 
-  @media (max-width: 430px) {
+  /* @media (max-width: 430px) {
     width: 360px;
-  }
+    } */
 `;
 
 // 시간 날씨 공간
 export const HourlyWeatherWrap = styled.div`
   box-shadow: 0px 0px 5px #444;
   border-radius: 10px;
-  width: 100%;
+  /* width: 410px; */
 `;

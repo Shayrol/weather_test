@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 
 // 일주일 날씨 테두리 영역
 export const Wrap = styled.div`
+  max-width: 400px;
   width: 100%;
   height: 100%;
   display: flex;
@@ -15,10 +16,7 @@ export const WeathersWrap = styled.div`
   justify-content: center;
   width: 100%;
   height: 100%;
-
-  @media (max-width: 1024px) {
-    padding: 10px 0;
-  }
+  padding: 5px 10px;
 `;
 
 // 일주일 전체공간
@@ -27,6 +25,8 @@ export const TodaysWrap = styled.div`
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  white-space: nowrap;
+  padding-left: 20px;
 `;
 
 // 월, 화, 수, 목, 금, 토, 일
@@ -44,7 +44,7 @@ export const Wrap34 = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 300px;
+  width: 100%;
 `;
 
 // 강수확률, 구름 전체공간 - 3일

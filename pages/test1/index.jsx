@@ -50,19 +50,11 @@ const App = () => {
 
   return (
     <Wrap>
-      <h1>북마크 리스트</h1>
-      <ul>
-        {data.map((item) => (
-          <li key={item.id}>
-            <h2>{item.title}</h2>
-            <p>View: {item.view}</p>
-            <p>Date: {item.date}</p>
-            <button onClick={() => handleBookmark(item.id)}>
-              {item.isBookmarked ? "북마크 취소" : "북마크"}
-            </button>
-          </li>
-        ))}
-      </ul>
+      <Box>1</Box>
+      <Box>2</Box>
+      <Box>3</Box>
+      <Box>4</Box>
+      <Box>5</Box>
     </Wrap>
   );
 };
@@ -71,8 +63,18 @@ export default App;
 
 const Wrap = styled.div`
   display: flex;
-  flex-direction: column;
+  gap: 20px;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  border: 3px solid black;
+  width: 800px;
+`;
+
+const Box = styled.div`
+  height: 200px;
+  width: 200px;
+  background-color: #0071ff;
+  border: 1px solid black;
 `;
